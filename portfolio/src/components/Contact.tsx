@@ -29,20 +29,20 @@ export default function Contact() {
     <section id="contatti" className="py-10 md:py-20 px-6 max-w-6xl mx-auto">
       <div className="w-full h-px mb-16" style={{ background: "var(--border)" }} />
 
-      
+     
 
-      <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-16 pb-10 pt-10 md:pt-20">
+      <div className="flex flex-col lg:flex-row items-center justify-between gap-16 pb-10 pt-10 md:pt-20">
         {/* Left */}
         <div className="max-w-lg">
-          <motion.p
+           <motion.p
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         className="text-xs font-semibold tracking-[0.25em] uppercase mb-6"
         style={{ color: "var(--accent)", fontFamily: "var(--font-mono)" }}
-      >
-        Contatti
+      >Contatti
       </motion.p>
+        
           <motion.h2
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}

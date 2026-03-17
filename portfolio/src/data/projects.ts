@@ -63,7 +63,7 @@ export const webProjects: Project[] = [
     liveUrl: "https://banorsicav.com/",
     image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&h=400&fit=crop",
   },
-  {
+  /* {
     id: "ballarini-interni",
     name: "Ballarini Interni",
     description:
@@ -71,7 +71,7 @@ export const webProjects: Project[] = [
     tech: ["WordPress", "Elementor", "GSAP", "Swiper.js", "GTM"],
     liveUrl: "https://ballarini-interni.com/",
     image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600&h=400&fit=crop",
-  },
+  }, */
 ];
 
 export const cryptoProjects: Project[] = [

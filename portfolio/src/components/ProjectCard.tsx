@@ -34,7 +34,7 @@ export default function ProjectCard({ project, index }: Props) {
 
       {/* Header */}
       <div className="flex items-start justify-between gap-3 ">
-        <h3 className="font-semibold text-xl leading-snug pt-2 px-5" style={{ color: "var(--text)" }}>
+        <h3 className="font-semibold text-2xl leading-snug pt-2 px-5 mb-0" style={{ color: "var(--text)" }}>
           {project.name}
         </h3>
         <div className="flex gap-2 shrink-0">
@@ -70,7 +70,7 @@ export default function ProjectCard({ project, index }: Props) {
       </div>
 
       {/* Description */}
-      <p className="text-sm leading-relaxed flex-1 p-5" style={{ color: "var(--muted)" }}>
+      <p className="text-base leading-relaxed flex-1 px-5 py-4" style={{ color: "var(--muted)" }}>
         {project.description}
       </p>
 
@@ -79,7 +79,7 @@ export default function ProjectCard({ project, index }: Props) {
         {project.tech.map((t) => (
           <span
             key={t} 
-            className="text-xs px-2 py-0.5 rounded"
+            className="text-sm px-2 py-0.5 rounded"
             style={{
               background: "var(--badge-bg)",
               color: "var(--badge-text)",
