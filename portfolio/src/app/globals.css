@@ -8,7 +8,7 @@ html {
 :root,
 .dark {
   --bg: #000000;
-  --surface: ##1e2939;
+  --surface: #1e2939;
   --surface-2: #141414;
   --border: #222222;
   --border-soft: #1a1a1a;
@@ -19,15 +19,15 @@ html {
   --accent: #0052ff;
   --accent-light: #4d88ff;
   --accent-dim: rgba(0, 82, 255, 0.1);
-  --badge-text: #0d68fb;
-  --badge-bg: rgba(0, 82, 255, 0.1);
+  --badge-text: #ffffff;
+  --badge-bg: #2b3647;
   --badge-border: rgba(0, 82, 255, 0.3);
   --card-bg: #0d0d0d;
   --card-border: #1a1a1a;
   --card-bg-hover: #141414;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
-
+ 
 .light {
   --bg: #ffffff;
   --surface: #fff;

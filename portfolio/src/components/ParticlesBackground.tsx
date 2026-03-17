@@ -135,14 +135,16 @@ export default function ParticlesBackground() {
         }
       }
 
-      // Shooting stars — spawn randomly every ~3-6 seconds
-      frameCount++;
-      if (frameCount % (180 + Math.floor(Math.random() * 180)) === 0) {
-        spawnShootingStar();
+      // Shooting stars — only in dark mode, spawn randomly every ~3-6 seconds
+      if (isDark) {
+        frameCount++;
+        if (frameCount % (180 + Math.floor(Math.random() * 180)) === 0) {
+          spawnShootingStar();
+        }
       }
 
       // Draw shooting stars
-      const shootColor = isDark ? "255,255,255" : "10,15,25";
+      const shootColor = "255,255,255";
       for (let i = shootingStars.length - 1; i >= 0; i--) {
         const ss = shootingStars[i];
         ss.x += ss.vx;

@@ -3,143 +3,150 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, Globe, ShoppingCart, Wrench, Code2, BarChart2, Bot } from "lucide-react";
 
-const NODES = [
-  { label: "WordPress", x: 20, y: 8 },
-  { label: "React", x: 75, y: 15 },
-  { label: "Next.js", x: 50, y: 38 },
-  { label: "TypeScript", x: 85, y: 52 },
-  { label: "Tailwind", x: 25, y: 60 },
-  { label: "DeFi", x: 65, y: 78 },
-  { label: "Node.js", x: 15, y: 35 },
-  { label: "AI", x: 90, y: 88 },
+// Orbital rings — minimal geometric animation
+const RINGS = [
+  { cx: 55, cy: 45, r: 28, duration: 35, delay: 0.6 },
+  { cx: 55, cy: 45, r: 18, duration: 28, delay: 0.8 },
+  { cx: 55, cy: 45, r: 38, duration: 42, delay: 1.0 },
 ];
 
-const CONNECTIONS: [number, number][] = [
-  [0, 1], [0, 6], [1, 2], [2, 3], [2, 4], [3, 5], [4, 6], [5, 7], [1, 3], [4, 5],
+const DOTS = [
+  { r: 28, angle: 0, speed: 35, size: 2, delay: 1.2 },
+  { r: 28, angle: 180, speed: 35, size: 1.5, delay: 1.5 },
+  { r: 18, angle: 90, speed: 28, size: 1.8, delay: 1.8 },
+  { r: 38, angle: 270, speed: 42, size: 1.3, delay: 2.0 },
+  { r: 38, angle: 60, speed: 42, size: 1.6, delay: 2.3 },
 ];
 
 function ConnectionLines() {
+  const cx = 55;
+  const cy = 45;
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ delay: 0.5, duration: 1.2 }}
+      transition={{ delay: 0.5, duration: 2 }}
       className="absolute -right-[5%] top-1/2 -translate-y-1/2 w-[55%] aspect-square pointer-events-none hidden lg:block"
       aria-hidden="true"
     >
       <svg className="w-full h-full" viewBox="0 0 100 100">
-        {/* Connection lines */}
-        {CONNECTIONS.map(([a, b], i) => (
-          <motion.line
-            key={`line-${a}-${b}`}
-            x1={NODES[a].x}
-            y1={NODES[a].y}
-            x2={NODES[b].x}
-            y2={NODES[b].y}
+        {/* Orbital rings */}
+        {RINGS.map((ring, i) => (
+          <motion.circle
+            key={`ring-${i}`}
+            cx={ring.cx}
+            cy={ring.cy}
+            r={ring.r}
+            fill="none"
             stroke="var(--accent)"
-            strokeWidth="0.3"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: [0, 0.35, 0.15, 0.35] }}
+            strokeWidth="0.12"
+            strokeDasharray="2 4"
+            initial={{ opacity: 0, rotate: 0 }}
+            animate={{ opacity: [0, 0.2, 0.1, 0.2], rotate: 360 }}
             transition={{
-              pathLength: { delay: 0.7 + i * 0.1, duration: 0.8, ease: "easeOut" },
-              opacity: { delay: 0.7 + i * 0.1, duration: 4, repeat: Infinity, repeatType: "reverse" },
+              opacity: { delay: ring.delay, duration: 6, repeat: Infinity, repeatType: "reverse" },
+              rotate: { delay: ring.delay, duration: ring.duration, repeat: Infinity, ease: "linear" },
             }}
+            style={{ transformOrigin: `${ring.cx}px ${ring.cy}px` }}
           />
         ))}
 
-        {/* Traveling pulses along lines */}
-        {CONNECTIONS.map(([a, b], i) => (
-          <motion.circle
-            key={`pulse-${a}-${b}`}
-            r="0.8"
-            fill="var(--accent)"
-            initial={{ opacity: 0 }}
-            animate={{
-              cx: [NODES[a].x, NODES[b].x],
-              cy: [NODES[a].y, NODES[b].y],
-              opacity: [0, 0.8, 0],
-            }}
-            transition={{
-              delay: 1.5 + i * 0.3,
-              duration: 2 + Math.random() * 2,
-              repeat: Infinity,
-              repeatDelay: 3 + Math.random() * 4,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
+        {/* Center point */}
+        <motion.circle
+          cx={cx}
+          cy={cy}
+          r="1.5"
+          fill="var(--accent)"
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: [0.15, 0.35, 0.15], scale: [1, 1.2, 1] }}
+          transition={{ delay: 0.8, duration: 5, repeat: Infinity, ease: "easeInOut" }}
+        />
 
-        {/* Node dots */}
-        {NODES.map((node, i) => (
-          <motion.circle
-            key={`dot-${node.label}`}
-            cx={node.x}
-            cy={node.y}
-            r="1.8"
-            fill="var(--accent)"
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{
-              scale: [1, 1.3, 1],
-              opacity: [0.6, 1, 0.6],
-            }}
-            transition={{
-              delay: 0.8 + i * 0.12,
-              duration: 3,
-              repeat: Infinity,
-              repeatType: "reverse",
-              ease: "easeInOut",
-            }}
-          />
-        ))}
+        {/* Orbiting dots */}
+        {DOTS.map((dot, i) => {
+          const startAngle = (dot.angle * Math.PI) / 180;
+          const startX = cx + dot.r * Math.cos(startAngle);
+          const startY = cy + dot.r * Math.sin(startAngle);
 
-        {/* Outer glow rings */}
-        {NODES.map((node, i) => (
+          // Generate smooth circular path with 8 points
+          const points = 8;
+          const xKeys = [];
+          const yKeys = [];
+          for (let p = 0; p <= points; p++) {
+            const a = startAngle + (p / points) * Math.PI * 2;
+            xKeys.push(cx + dot.r * Math.cos(a));
+            yKeys.push(cy + dot.r * Math.sin(a));
+          }
+
+          return (
+            <motion.circle
+              key={`dot-${i}`}
+              r={dot.size}
+              fill="var(--accent)"
+              initial={{ cx: startX, cy: startY, opacity: 0 }}
+              animate={{
+                cx: xKeys,
+                cy: yKeys,
+                opacity: [0, 0.4, 0.2, 0.4, 0.3, 0.4, 0.2, 0.4, 0],
+              }}
+              transition={{
+                delay: dot.delay,
+                duration: dot.speed,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+            />
+          );
+        })}
+
+        {/* Pulse rings expanding from center */}
+        {[0, 1, 2].map((i) => (
           <motion.circle
-            key={`ring-${node.label}`}
-            cx={node.x}
-            cy={node.y}
-            r="3.5"
+            key={`pulse-${i}`}
+            cx={cx}
+            cy={cy}
             fill="none"
             stroke="var(--accent)"
             strokeWidth="0.15"
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{
-              scale: [1, 1.5, 1],
-              opacity: [0.3, 0, 0.3],
-            }}
+            initial={{ r: 2, opacity: 0 }}
+            animate={{ r: 70, opacity: [0, 0.18, 0.06, 0] }}
             transition={{
-              delay: 1 + i * 0.15,
-              duration: 4,
+              delay: 2 + i * 3.5,
+              duration: 8,
               repeat: Infinity,
-              repeatType: "reverse",
-              ease: "easeInOut",
+              ease: "easeOut",
             }}
           />
         ))}
-      </svg>
 
-      {/* Labels */}
-      {NODES.map((node, i) => (
-        <motion.div
-          key={node.label}
-          className="absolute"
-          style={{ left: `${node.x}%`, top: `${node.y}%`, transform: "translate(-50%, -220%)" }}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2 + i * 0.12, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <span
-            className="text-xs font-semibold whitespace-nowrap px-2 py-0.5 rounded"
-            style={{
-              color: "var(--accent)",
-              background: "var(--accent-dim)",
-              fontFamily: "var(--font-mono)",
-            }}
-          >
-            {node.label}
-          </span>
-        </motion.div>
-      ))}
+        {/* Faint radial lines from center */}
+        {[0, 60, 120, 180, 240, 300].map((angle, i) => {
+          const rad = (angle * Math.PI) / 180;
+          const x2 = cx + 42 * Math.cos(rad);
+          const y2 = cy + 42 * Math.sin(rad);
+          return (
+            <motion.line
+              key={`ray-${i}`}
+              x1={cx}
+              y1={cy}
+              x2={x2}
+              y2={y2}
+              stroke="var(--accent)"
+              strokeWidth="0.06"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0, 0.12, 0.05, 0.12] }}
+              transition={{
+                delay: 1.5 + i * 0.2,
+                duration: 8,
+                repeat: Infinity,
+                repeatType: "reverse",
+                ease: "easeInOut",
+              }}
+            />
+          );
+        })}
+      </svg>
     </motion.div>
   );
 }
