@@ -33,17 +33,27 @@ export default function ProjectsWeb() {
             className="text-[clamp(2rem,5vw,3.5rem)] font-black tracking-[-0.02em] leading-none mb-4"
             style={{ color: "var(--text)" }}
           >
-            Siti & App
+            Siti Web
           </motion.h2>
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.15 }}
-            className="text-lg max-w-md"
+            className="text-lg max-w-md mb-4"
             style={{ color: "var(--muted)" }}
           >
             WordPress, React e Next.js. Dal sito vetrina all&apos;e-commerce complesso.
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-xs font-medium tracking-wide"
+            style={{ color: "var(--muted-2)", fontFamily: "var(--font-mono)" }}
+          >
+            Sviluppo frontend presso Fornace Srl
           </motion.p>
         </div>
         <TerminalCode className="shrink-0 w-full lg:max-w-md lg:w-[420px]" />
