@@ -26,7 +26,7 @@ html {
   --card-bg-hover: #141414;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
- 
+  
 .light {
   --bg: #ffffff;
   --surface: #fff;

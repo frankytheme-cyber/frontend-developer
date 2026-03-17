@@ -322,7 +322,7 @@ function ServiceCards() {
 
 export default function Hero() {
   return (
-    <section className="min-h-screen flex flex-col justify-center px-6 pt-12 pb-10 md:pt-24 md:pb-20 max-w-6xl mx-auto">
+    <section className="min-h-screen flex flex-col justify-center px-6 pb-10 pt-20 md:pb-20 max-w-6xl mx-auto">
 
       {/* Eyebrow */}
       <motion.p
