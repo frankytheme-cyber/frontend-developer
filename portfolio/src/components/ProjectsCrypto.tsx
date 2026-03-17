@@ -60,7 +60,7 @@ export default function ProjectsCrypto() {
         {PROTOCOLS.map((p) => (
           <span
             key={p}
-            className="text-xs font-medium px-3 py-1 rounded-full"
+            className="text-sm font-medium px-3 py-1 rounded-full"
             style={{
               background: "rgba(147,197,253,0.05)",
               border: "1px solid rgba(147,197,253,0.2)",
