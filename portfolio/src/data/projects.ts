@@ -34,7 +34,7 @@ export const webProjects: Project[] = [
       "Sito internazionale per la linea AGM di batterie moto, scooter e powersport di FIAMM Energy Technology. Theme Roots Sage, build asset con Webpack, Instagram Feed integrato.",
     tech: ["WordPress", "Roots Sage", "Webpack", "WPML", "GTM"],
     liveUrl: "https://fiammeasyrider.com/",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&h=400&fit=crop",
+    image: "/images/fiamm.jpg",
   },
   {
     id: "molino-spadoni",

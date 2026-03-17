@@ -26,10 +26,15 @@ const socialLinks = [
 
 export default function Contact() {
   return (
-    <section id="contatti" className="py-28 px-6 max-w-6xl mx-auto">
+    <section id="contatti" className="py-10 md:py-20 px-6 max-w-6xl mx-auto">
       <div className="w-full h-px mb-16" style={{ background: "var(--border)" }} />
 
-      <motion.p
+      
+
+      <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-16 pb-10 pt-10 md:pt-20">
+        {/* Left */}
+        <div className="max-w-lg">
+          <motion.p
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
@@ -38,10 +43,6 @@ export default function Contact() {
       >
         Contatti
       </motion.p>
-
-      <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-16">
-        {/* Left */}
-        <div className="max-w-lg">
           <motion.h2
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -63,9 +64,9 @@ export default function Contact() {
             className="text-lg leading-relaxed mb-6"
             style={{ color: "var(--muted)" }}
           >
-            Costruisco siti WordPress, e-commerce e interfacce React. Sviluppo anche assistenti AI
-            personalizzati — chatbot, tool interni, workflow automatizzati — integrabili in qualsiasi
-            contesto web. Freelance da Verona, disponibile da remoto.
+            Costruisco siti WordPress, e-commerce e interfacce in React. 
+            Sviluppo soluzioni AI su misura — chatbot, tool interni e workflow automatizzati — facilmente integrabili in qualsiasi contesto web. 
+            <br/>Freelance da Verona, disponibile da remoto.
           </motion.p>
 
           {/* Availability */}
