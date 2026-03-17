@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowUpRight, Github } from "lucide-react";
+import Image from "next/image";
 import type { Project } from "@/data/projects";
 
 type Props = {
@@ -12,21 +13,23 @@ type Props = {
 export default function ProjectCard({ project, index }: Props) {
   return (
     <motion.article
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.5, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }}
-      className="flex flex-col gap-4 rounded-xl transition-all duration-200 overflow-hidden"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.45, delay: index * 0.06 }}
+      className="flex flex-col gap-4 rounded-xl overflow-hidden"
       style={{ background: "var(--surface)" }}
     >
       {/* Image */}
       {project.image && (
-        <div className="overflow-hidden rounded-lg rounded-b-none -mx-1 -mt-1">
-          <img
+        <div className="relative overflow-hidden rounded-lg rounded-b-none -mx-1 -mt-1 h-60">
+          <Image
             src={project.image}
             alt={project.name}
+            fill
             loading="lazy"
-            className="w-full h-60 object-cover object-top transition-transform duration-300 hover:scale-105"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover object-top transition-transform duration-300 hover:scale-105"
             style={{ background: "var(--surface-2)" }}
           />
         </div>

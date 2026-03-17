@@ -90,13 +90,13 @@ export default function Contact() {
         {/* Right — links */}
         <div className="flex flex-col gap-5 lg:pt-2">
           {/* Email */}
-          <motion.button
+          <motion.a
+            href={`mailto:${EMAIL_PARTS.join("")}`}
             initial={{ opacity: 0, x: 12 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.22 }}
-            onClick={() => { window.location.href = "mailto:" + EMAIL_PARTS.join(""); }}
-            className="group flex items-center gap-4 cursor-pointer transition-colors duration-150"
+            className="group flex items-center gap-4 transition-colors duration-150"
             style={{ color: "var(--muted)" }}
             onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "var(--text)")}
             onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "var(--muted)")}
@@ -110,7 +110,7 @@ export default function Contact() {
                 simowebdesigner<span aria-hidden>&#8203;</span>@<span aria-hidden>&#8203;</span>gmail.com
               </p>
             </div>
-          </motion.button>
+          </motion.a>
 
           {socialLinks.map(({ icon: Icon, label, value, href }, i) => (
             <motion.a

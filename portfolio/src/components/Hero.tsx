@@ -8,12 +8,8 @@ import { ArrowUpRight, Globe, ShoppingCart, Wrench, Code2, BarChart2, Bot } from
 const DOTS = [
   { r: 38, angle: 0,   speed: 35, size: 1.1, delay: 1.2 },
   { r: 38, angle: 180, speed: 35, size: 0.8, delay: 1.5 },
-  { r: 24, angle: 90,  speed: 28, size: 1.0, delay: 1.8 },
   { r: 52, angle: 270, speed: 42, size: 0.7, delay: 2.0 },
-  { r: 52, angle: 60,  speed: 42, size: 0.9, delay: 2.3 },
-  { r: 44, angle: 150, speed: 38, size: 0.5, delay: 2.6 },
   { r: 30, angle: 320, speed: 32, size: 1.3, delay: 2.9 },
-  { r: 60, angle: 200, speed: 50, size: 0.6, delay: 3.2 },
 ];
 
 // Official Simple Icons SVG paths (viewBox 0 0 24 24)
@@ -85,7 +81,7 @@ function shapePath(type: string, s: number): string {
 // Logo-to-logo connection pairs (6 logos now)
 const LOGO_PAIRS: [number, number][] = [[0,3],[1,4],[0,2],[2,3],[1,0],[5,0],[5,3]];
 // Dot chord pairs (same orbit)
-const DOT_PAIRS: [number, number][] = [[0,1],[3,4]];
+const DOT_PAIRS: [number, number][] = [[0,1]];
 
 function OrbitAnimation() {
   const CX = 50, CY = 50;
@@ -93,9 +89,9 @@ function OrbitAnimation() {
   const ICON_OFF = -12 * SCALE; // centers 24px icon at (0,0)
 
   // Refs for SVG elements — direct DOM updates keep everything in SVG user units
-  const dotRefs   = useRef<(SVGCircleElement | null)[]>(Array(DOTS.length).fill(null));
+  const dotRefs   = useRef<(SVGCircleElement | null)[]>(Array(4).fill(null));
   const logoRefs  = useRef<(SVGGElement    | null)[]>(Array(LOGOS.length).fill(null));
-  const ldotRefs  = useRef<(SVGLineElement  | null)[]>(Array(DOTS.length).fill(null));   // center→dot
+  const ldotRefs  = useRef<(SVGLineElement  | null)[]>(Array(4).fill(null));   // center→dot
   const llogoRefs = useRef<(SVGLineElement  | null)[]>(Array(LOGOS.length).fill(null));  // center→logo
   const lpairRefs = useRef<(SVGLineElement  | null)[]>(Array(LOGO_PAIRS.length).fill(null)); // logo↔logo
   const chordRefs = useRef<(SVGLineElement  | null)[]>(Array(DOT_PAIRS.length).fill(null));  // dot↔dot
@@ -300,10 +296,10 @@ function ServiceCards() {
       {SERVICES.map(({ icon: Icon, label }, i) => (
         <motion.div
           key={label}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ delay: 0.8 + i * 0.06, duration: 0.3, ease: "easeOut" }}
-          className="group flex items-center gap-2.5 px-3 py-2.5 rounded-lg transition-all duration-200 cursor-default"
+          className="group flex items-center gap-2.5 px-3 py-2.5 rounded-lg cursor-default"
           style={{ background: "var(--surface)", border: "0px solid var(--border)" }}
           onMouseEnter={e => {
             (e.currentTarget as HTMLElement).style.borderColor = "var(--accent)";

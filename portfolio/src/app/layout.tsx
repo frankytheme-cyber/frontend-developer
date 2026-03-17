@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
@@ -16,6 +16,13 @@ const geistMono = Geist_Mono({
 
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tuosito.it";
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#141414" },
+  ],
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -57,6 +64,7 @@ export const metadata: Metadata = {
       "it-IT": siteUrl,
     },
   },
+  manifest: "/manifest.json",
   openGraph: {
     type: "website",
     locale: "it_IT",
@@ -92,16 +100,26 @@ const jsonLd = {
   description:
     "Frontend Developer freelance con oltre 14 anni di esperienza. Specializzato in WordPress, JavaScript, e-commerce e interfacce fintech/DeFi. Basato a Verona, disponibile in tutto il Veneto e da remoto.",
   url: siteUrl,
-  email: "ciao@simonepuliti.it",
+  email: "simowebdesigner@gmail.com",
   sameAs: [
     "https://github.com/simonepuliti",
-    "https://linkedin.com/in/simonepuliti",
+    "https://linkedin.com/in/simone-puliti-23071898",
   ],
   address: {
     "@type": "PostalAddress",
     addressLocality: "Verona",
     addressRegion: "Veneto",
     addressCountry: "IT",
+  },
+  areaServed: ["Verona", "Veneto", "Italia"],
+  hasOccupation: {
+    "@type": "Occupation",
+    name: "Frontend Developer",
+    occupationLocation: {
+      "@type": "City",
+      name: "Verona",
+    },
+    skills: "WordPress, React, Next.js, TypeScript, WooCommerce, DeFi, Fintech",
   },
   knowsAbout: [
     "WordPress",
@@ -114,9 +132,6 @@ const jsonLd = {
     "Uniswap",
     "Fintech",
     "Tailwind CSS",
-    "GSAP",
-    "Claude Code",
-    "Cursor",
   ],
 };
 
@@ -130,13 +145,17 @@ export default function RootLayout({
       <head>
         <link rel="canonical" href={siteUrl} />
         <link rel="alternate" hrefLang="it" href={siteUrl} />
+        <meta name="geo.region" content="IT-VR" />
+        <meta name="geo.placename" content="Verona" />
+        <meta name="geo.position" content="45.4384;10.9916" />
+        <meta name="ICBM" content="45.4384, 10.9916" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
       <body className={`${inter.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} themes={["light", "dark"]}>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} themes={["light", "dark"]}>
           {children}
         </ThemeProvider>
       </body>
