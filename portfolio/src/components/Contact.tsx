@@ -164,7 +164,7 @@ export default function Contact() {
           © {new Date().getFullYear()} Simone Puliti
         </p>
         <p className="text-xs" style={{ color: "var(--muted-2)", fontFamily: "var(--font-mono)" }}>
-          Next.js · Tailwind · Framer Motion
+          {/* Next.js · Tailwind · Framer Motion */}
         </p>
       </motion.div>
     </section>
