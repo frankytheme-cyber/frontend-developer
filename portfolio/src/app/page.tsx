@@ -6,6 +6,7 @@ import ParticlesBackground from "@/components/ParticlesBackground";
 import AuroraBackground from "@/components/AuroraBackground";
 import LightMeshBackground from "@/components/LightMeshBackground";
 import ThemeToggle from "@/components/ThemeToggle";
+import { Analytics } from "@vercel/analytics/next"
 
 export default function Home() {
   return (
