@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://tuosito.it
+Host: https://simonepuliti.dev
 
 # Sitemaps
-Sitemap: https://tuosito.it/sitemap.xml
+Sitemap: https://simonepuliti.dev/sitemap.xml
