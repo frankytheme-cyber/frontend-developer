@@ -3,13 +3,17 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-const DEFAULT_CODE = `const dev = {
-  stack: ["React", "Next.js", "TypeScript"],
-  location: "Verona, Italy",
-  available: true
-};
+const DEFAULT_CODE = `$ claude
 
-await build.with(dev);`;
+> Build portfolio with Next.js,
+  Tailwind and Framer Motion
+
+✓ Layout scaffolded
+✓ Components generated
+✓ Animations tuned
+✓ Deployed to Vercel
+
+Done in 4.2s`;
 
 type TerminalCodeProps = {
   code?: string;

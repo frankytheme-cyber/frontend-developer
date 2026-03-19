@@ -1,84 +1,142 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 
-type Level = { price: number; size: number; total: number };
+/* ─── Config ────────────────────────────────────────────────────────── */
+const LEVELS = 8;
+const INTERVAL_MS = 320;
+const BASE_MID = 42_150;
 
-const BASE_MID = 42150;
-const MAX_LEVELS = 8;
-const INTERVAL_MS = 380;
+type Row = { price: number; size: number; total: number };
 
+/* ─── Helpers ───────────────────────────────────────────────────────── */
 function fmt(n: number) {
   return n.toLocaleString("en-US", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 }
 function fmtQty(n: number) {
   return n >= 1000 ? (n / 1000).toFixed(2) + "k" : n.toFixed(2);
 }
-function buildLevels(raw: { price: number; size: number }[]): Level[] {
-  let running = 0;
-  return raw.map((l) => { running += l.size; return { ...l, total: running }; });
+function totals(rows: { price: number; size: number }[]): Row[] {
+  let run = 0;
+  return rows.map((r) => { run += r.size; return { ...r, total: run }; });
+}
+function clamp(v: number, lo: number, hi: number) { return Math.max(lo, Math.min(hi, v)); }
+
+/* ─── Initialise a full book ────────────────────────────────────────── */
+function initSide(base: number, dir: 1 | -1): { price: number; size: number }[] {
+  return Array.from({ length: LEVELS }, (_, i) => ({
+    price: +(base + dir * (i * (1.2 + Math.random() * 2.8))).toFixed(1),
+    size: +(Math.random() * 3.5 + 0.15).toFixed(3),
+  }));
 }
 
+/* ─── Component ─────────────────────────────────────────────────────── */
 export default function OrderBook() {
-  const [bids, setBids] = useState<Level[]>([]);
-  const [asks, setAsks] = useState<Level[]>([]);
-  const [flashBid, setFlashBid] = useState<number | null>(null);
-  const [flashAsk, setFlashAsk] = useState<number | null>(null);
-  const [lastMid, setLastMid] = useState(BASE_MID);
-  const [midDir, setMidDir] = useState<"up" | "down" | null>(null);
-  const prevMid = useRef(BASE_MID);
+  const midRef = useRef(BASE_MID);
+  const bidsRef = useRef<{ price: number; size: number }[]>([]);
+  const asksRef = useRef<{ price: number; size: number }[]>([]);
 
-  // Stable ref-based interval — never recreated, never stops
+  const [bids, setBids] = useState<Row[]>([]);
+  const [asks, setAsks] = useState<Row[]>([]);
+  const [mid, setMid] = useState(BASE_MID);
+  const [midDir, setMidDir] = useState<"up" | "down">("up");
+  const [spread, setSpread] = useState(0);
+  const [flashB, setFlashB] = useState<Set<number>>(new Set());
+  const [flashA, setFlashA] = useState<Set<number>>(new Set());
+
   useEffect(() => {
+    function mutateSide(
+      rows: { price: number; size: number }[],
+      base: number,
+      dir: 1 | -1,
+    ): { rows: { price: number; size: number }[]; changed: Set<number> } {
+      // Seed on first tick
+      if (rows.length < LEVELS) rows = initSide(base, dir);
+
+      const changed = new Set<number>();
+
+      // Shift prices toward new best price
+      if (rows.length > 0) {
+        const shift = base - rows[0].price;
+        if (Math.abs(shift) > 0.3) {
+          rows.forEach((r) => { r.price = +(r.price + shift * 0.4).toFixed(1); });
+        }
+      }
+
+      // Mutate 2-4 random levels
+      const mutations = 2 + Math.floor(Math.random() * 3);
+      for (let m = 0; m < mutations; m++) {
+        const idx = Math.floor(Math.random() * rows.length);
+        const delta = (Math.random() - 0.4) * 1.5;
+        rows[idx].size = +clamp(rows[idx].size + delta, 0.02, 12).toFixed(3);
+        changed.add(rows[idx].price);
+      }
+
+      // Occasionally replace worst level
+      if (Math.random() < 0.12 && rows.length === LEVELS) {
+        const last = rows.length - 1;
+        rows[last] = {
+          price: +(rows[last - 1].price + dir * (1 + Math.random() * 3)).toFixed(1),
+          size: +(Math.random() * 3 + 0.1).toFixed(3),
+        };
+        changed.add(rows[last].price);
+      }
+
+      return { rows, changed };
+    }
+
     function tick() {
-      const spread = 18 + Math.random() * 12;
-      const mid = BASE_MID + (Math.random() - 0.5) * 120;
-      setMidDir(mid > prevMid.current ? "up" : "down");
-      prevMid.current = mid;
-      setLastMid(mid);
-      const bestBid = mid - spread / 2;
-      const bestAsk = mid + spread / 2;
+      // Random-walk mid price
+      const step = (Math.random() - 0.48) * 5;
+      const newMid = clamp(midRef.current + step, BASE_MID - 200, BASE_MID + 200);
+      const dir = newMid >= midRef.current ? "up" : "down";
+      midRef.current = newMid;
 
-      setBids((prev) => {
-        const price = bestBid - Math.random() * 80;
-        const size = Math.random() * 3 + 0.05;
-        const idx = prev.findIndex((l) => Math.abs(l.price - price) < 1);
-        let next: { price: number; size: number }[];
-        if (idx >= 0) {
-          next = prev.map((l, i) => (i === idx ? { price: l.price, size } : l));
-          setFlashBid(prev[idx].price);
-          setTimeout(() => setFlashBid(null), 600);
-        } else {
-          next = [...prev, { price, size }];
-        }
-        return buildLevels(next.sort((a, b) => b.price - a.price).slice(0, MAX_LEVELS));
-      });
+      const gap = 8 + Math.random() * 10;
+      const bestBid = newMid - gap / 2;
+      const bestAsk = newMid + gap / 2;
 
-      setAsks((prev) => {
-        const price = bestAsk + Math.random() * 80;
-        const size = Math.random() * 3 + 0.05;
-        const idx = prev.findIndex((l) => Math.abs(l.price - price) < 1);
-        let next: { price: number; size: number }[];
-        if (idx >= 0) {
-          next = prev.map((l, i) => (i === idx ? { price: l.price, size } : l));
-          setFlashAsk(prev[idx].price);
-          setTimeout(() => setFlashAsk(null), 600);
-        } else {
-          next = [...prev, { price, size }];
-        }
-        return buildLevels(next.sort((a, b) => a.price - b.price).slice(0, MAX_LEVELS));
-      });
+      // Mutate both sides
+      const bidResult = mutateSide(
+        bidsRef.current.map((r) => ({ ...r })),
+        bestBid, -1,
+      );
+      const askResult = mutateSide(
+        asksRef.current.map((r) => ({ ...r })),
+        bestAsk, 1,
+      );
+
+      // Sort and store
+      const sortedBids = bidResult.rows.sort((a, b) => b.price - a.price).slice(0, LEVELS);
+      const sortedAsks = askResult.rows.sort((a, b) => a.price - b.price).slice(0, LEVELS);
+      bidsRef.current = sortedBids;
+      asksRef.current = sortedAsks;
+
+      // Batch all state updates
+      setMid(newMid);
+      setMidDir(dir as "up" | "down");
+      setSpread(gap);
+      setBids(totals(sortedBids));
+      setAsks(totals(sortedAsks));
+      setFlashB(bidResult.changed);
+      setFlashA(askResult.changed);
     }
 
     tick();
     const id = setInterval(tick, INTERVAL_MS);
     return () => clearInterval(id);
-  }, []); // empty deps → runs once, never recreated
+  }, []);
 
-  const maxBidTotal = bids[bids.length - 1]?.total ?? 1;
-  const maxAskTotal = asks[asks.length - 1]?.total ?? 1;
-  const spread = asks[0] && bids[0] ? asks[0].price - bids[0].price : 0;
+  // Clear flash highlights
+  useEffect(() => {
+    if (flashB.size === 0 && flashA.size === 0) return;
+    const t = setTimeout(() => { setFlashB(new Set()); setFlashA(new Set()); }, INTERVAL_MS * 0.65);
+    return () => clearTimeout(t);
+  }, [flashB, flashA]);
+
+  const maxBid = bids[bids.length - 1]?.total ?? 1;
+  const maxAsk = asks[asks.length - 1]?.total ?? 1;
 
   return (
     <motion.div
@@ -105,111 +163,99 @@ export default function OrderBook() {
       </div>
 
       {/* Bids | Asks side by side */}
-      <div className="grid grid-cols-2" style={{ borderBottom: `1px solid var(--border)` }}>
+      <div className="grid grid-cols-2" style={{ borderBottom: "1px solid var(--border)" }}>
 
-        {/* ── BIDS (left) ── */}
+        {/* ── BIDS ── */}
         <div className="border-r" style={{ borderColor: "var(--border)" }}>
-          {/* Column header */}
           <div className="grid grid-cols-2 px-2 py-1.5 border-b"
             style={{ borderColor: "var(--border)", color: "var(--muted-2)" }}>
             <span>Bid</span>
             <span className="text-right">Qty</span>
           </div>
-          {/* Rows */}
-          <div className="h-45 overflow-hidden">
-            <AnimatePresence initial={false}>
+          <div className="overflow-hidden" style={{ height: LEVELS * 22 }}>
             {bids.map((l) => {
-              const pct = (l.total / maxBidTotal) * 100;
-              const isFlash = flashBid !== null && Math.abs(l.price - flashBid) < 1;
+              const pct = (l.total / maxBid) * 100;
+              const flash = flashB.has(l.price);
               return (
-                <motion.div
-                  key={`b-${l.price.toFixed(1)}`}
-                  initial={{ opacity: 0, x: -12 }}
-                  animate={{
-                    opacity: 1, x: 0,
-                    backgroundColor: isFlash ? "rgba(34,197,94,0.35)" : "rgba(0,0,0,0)",
+                <div
+                  key={l.price.toFixed(1)}
+                  className="relative grid grid-cols-2 px-2 overflow-hidden"
+                  style={{
+                    height: 22,
+                    lineHeight: "22px",
+                    backgroundColor: flash ? "rgba(34,197,94,0.22)" : "transparent",
+                    transition: "background-color 0.25s ease-out",
                   }}
-                  exit={{ opacity: 0, x: -8 }}
-                  transition={{
-                    opacity: { duration: 0.18 },
-                    x: { duration: 0.18 },
-                    backgroundColor: { duration: isFlash ? 0.05 : 0.55 },
-                  }}
-                  className="relative grid grid-cols-2 px-2 py-0.75 overflow-hidden"
                 >
-                  <span className="absolute inset-y-0 right-0 pointer-events-none"
-                    style={{ width: `${pct}%`, background: "rgba(34,197,94,0.09)", transition: "width 0.3s" }} />
+                  <span
+                    className="absolute inset-y-0 right-0 pointer-events-none"
+                    style={{
+                      width: `${pct}%`,
+                      background: "rgba(34,197,94,0.08)",
+                      transition: "width 0.4s ease-out",
+                    }}
+                  />
                   <span style={{ color: "#22c55e", position: "relative" }}>{fmt(l.price)}</span>
-                  <AnimatePresence mode="wait">
-                    <motion.span
-                      key={`bq-${l.price.toFixed(1)}-${l.size.toFixed(3)}`}
-                      initial={{ opacity: 0, y: -4 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 4 }}
-                      transition={{ duration: 0.14 }}
-                      className="text-right"
-                      style={{ color: "var(--muted)", position: "relative" }}
-                    >
-                      {fmtQty(l.size)}
-                    </motion.span>
-                  </AnimatePresence>
-                </motion.div>
+                  <span
+                    className="text-right"
+                    style={{
+                      color: "var(--muted)",
+                      position: "relative",
+                      transition: "color 0.15s",
+                    }}
+                  >
+                    {fmtQty(l.size)}
+                  </span>
+                </div>
               );
             })}
-            </AnimatePresence>
           </div>
         </div>
 
-        {/* ── ASKS (right) ── */}
+        {/* ── ASKS ── */}
         <div>
-          {/* Column header */}
           <div className="grid grid-cols-2 px-2 py-1.5 border-b"
             style={{ borderColor: "var(--border)", color: "var(--muted-2)" }}>
             <span>Ask</span>
             <span className="text-right">Qty</span>
           </div>
-          {/* Rows */}
-          <div className="h-45 overflow-hidden">
-            <AnimatePresence initial={false}>
+          <div className="overflow-hidden" style={{ height: LEVELS * 22 }}>
             {asks.map((l) => {
-              const pct = (l.total / maxAskTotal) * 100;
-              const isFlash = flashAsk !== null && Math.abs(l.price - flashAsk) < 1;
+              const pct = (l.total / maxAsk) * 100;
+              const flash = flashA.has(l.price);
               return (
-                <motion.div
-                  key={`a-${l.price.toFixed(1)}`}
-                  initial={{ opacity: 0, x: 12 }}
-                  animate={{
-                    opacity: 1, x: 0,
-                    backgroundColor: isFlash ? "rgba(239,68,68,0.35)" : "rgba(0,0,0,0)",
+                <div
+                  key={l.price.toFixed(1)}
+                  className="relative grid grid-cols-2 px-2 overflow-hidden"
+                  style={{
+                    height: 22,
+                    lineHeight: "22px",
+                    backgroundColor: flash ? "rgba(239,68,68,0.22)" : "transparent",
+                    transition: "background-color 0.25s ease-out",
                   }}
-                  exit={{ opacity: 0, x: 8 }}
-                  transition={{
-                    opacity: { duration: 0.18 },
-                    x: { duration: 0.18 },
-                    backgroundColor: { duration: isFlash ? 0.05 : 0.55 },
-                  }}
-                  className="relative grid grid-cols-2 px-2 py-0.75 overflow-hidden"
                 >
-                  <span className="absolute inset-y-0 right-0 pointer-events-none"
-                    style={{ width: `${pct}%`, background: "rgba(239,68,68,0.09)", transition: "width 0.3s" }} />
+                  <span
+                    className="absolute inset-y-0 right-0 pointer-events-none"
+                    style={{
+                      width: `${pct}%`,
+                      background: "rgba(239,68,68,0.08)",
+                      transition: "width 0.4s ease-out",
+                    }}
+                  />
                   <span style={{ color: "#ef4444", position: "relative" }}>{fmt(l.price)}</span>
-                  <AnimatePresence mode="wait">
-                    <motion.span
-                      key={`aq-${l.price.toFixed(1)}-${l.size.toFixed(3)}`}
-                      initial={{ opacity: 0, y: -4 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 4 }}
-                      transition={{ duration: 0.14 }}
-                      className="text-right"
-                      style={{ color: "var(--muted)", position: "relative" }}
-                    >
-                      {fmtQty(l.size)}
-                    </motion.span>
-                  </AnimatePresence>
-                </motion.div>
+                  <span
+                    className="text-right"
+                    style={{
+                      color: "var(--muted)",
+                      position: "relative",
+                      transition: "color 0.15s",
+                    }}
+                  >
+                    {fmtQty(l.size)}
+                  </span>
+                </div>
               );
             })}
-            </AnimatePresence>
           </div>
         </div>
       </div>
@@ -217,19 +263,15 @@ export default function OrderBook() {
       {/* Mid price footer */}
       <div className="flex items-center justify-between px-3 py-2"
         style={{ background: "var(--surface-2)" }}>
-        <AnimatePresence mode="wait">
-          <motion.span
-            key={lastMid.toFixed(1)}
-            initial={{ opacity: 0, y: midDir === "up" ? 4 : -4 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-            className="font-bold text-sm"
-            style={{ color: midDir === "up" ? "#22c55e" : "#ef4444" }}
-          >
-            {fmt(lastMid)}
-          </motion.span>
-        </AnimatePresence>
+        <span
+          className="font-bold text-sm"
+          style={{
+            color: midDir === "up" ? "#22c55e" : "#ef4444",
+            transition: "color 0.15s",
+          }}
+        >
+          {fmt(mid)}
+        </span>
         <span style={{ color: "var(--muted-2)" }}>spread {fmt(spread)}</span>
       </div>
     </motion.div>

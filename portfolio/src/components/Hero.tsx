@@ -349,6 +349,42 @@ export default function Hero() {
           Puliti
           <span style={{ color: "var(--accent)" }}>.</span>
         </motion.h1>
+        {/* Cloud overlay — behind the orbit animation */}
+        <div
+          className="absolute -right-[10%] top-1/2 -translate-y-1/2 w-[65%] aspect-square pointer-events-none hidden lg:block"
+          aria-hidden="true"
+          style={{ zIndex: 0 }}
+        >
+          {/* Primary blue #0052ff */}
+          <div className="absolute inset-0 cloud-drift-1"
+            style={{
+              background: "radial-gradient(ellipse at 40% 35%, rgba(0,82,255,0.13) 0%, transparent 60%)",
+              filter: "blur(40px)",
+            }}
+          />
+          {/* Complementary warm — amber/orange (opposite of blue on wheel) */}
+          <div className="absolute inset-0 cloud-drift-2"
+            style={{
+              background: "radial-gradient(ellipse at 70% 55%, rgba(255,160,40,0.06) 0%, transparent 50%)",
+              filter: "blur(55px)",
+            }}
+          />
+          {/* Split-complementary — soft violet */}
+          <div className="absolute inset-0 cloud-drift-3"
+            style={{
+              background: "radial-gradient(ellipse at 30% 65%, rgba(120,70,220,0.08) 0%, transparent 55%)",
+              filter: "blur(50px)",
+            }}
+          />
+          {/* Analogous — cyan/teal */}
+          <div className="absolute inset-0 cloud-drift-1"
+            style={{
+              background: "radial-gradient(ellipse at 60% 75%, rgba(0,180,210,0.07) 0%, transparent 50%)",
+              filter: "blur(45px)",
+              animationDelay: "-8s",
+            }}
+          />
+        </div>
         <OrbitAnimation />
       </div>
 

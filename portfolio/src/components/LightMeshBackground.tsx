@@ -16,7 +16,7 @@ export default function LightMeshBackground() {
 
   return (
     <div
-      className="fixed inset-0 pointer-events-none overflow-hidden"
+      className="fixed inset-0 pointer-events-none overflow-hidden opacity-0"
       style={{ zIndex: 0 }}
       aria-hidden="true"
     >
@@ -28,7 +28,7 @@ export default function LightMeshBackground() {
           height: "80vh",
           top: "-25%",
           left: "-10%",
-          background: "radial-gradient(ellipse at center, rgba(0,82,255,0.2) 0%, rgba(0,82,255,0.06) 40%, transparent 70%)",
+          background: "radial-gradient(ellipse at center, rgba(0,82,255,0.08) 0%, rgba(0,82,255,0.02) 40%, transparent 70%)",
           filter: "blur(60px)",
         }}
       />
@@ -41,7 +41,7 @@ export default function LightMeshBackground() {
           height: "70vh",
           top: "5%",
           right: "-15%",
-          background: "radial-gradient(ellipse at center, rgba(0,210,190,0.18) 0%, rgba(0,180,170,0.05) 40%, transparent 70%)",
+          background: "radial-gradient(ellipse at center, rgba(0,210,190,0.06) 0%, rgba(0,180,170,0.02) 40%, transparent 70%)",
           filter: "blur(60px)",
         }}
       />
@@ -54,7 +54,7 @@ export default function LightMeshBackground() {
           height: "70vh",
           bottom: "-15%",
           left: "0%",
-          background: "radial-gradient(ellipse at center, rgba(130,80,230,0.18) 0%, rgba(130,80,230,0.05) 40%, transparent 70%)",
+          background: "radial-gradient(ellipse at center, rgba(130,80,230,0.06) 0%, rgba(130,80,230,0.02) 40%, transparent 70%)",
           filter: "blur(70px)",
         }}
       />
@@ -67,7 +67,7 @@ export default function LightMeshBackground() {
           height: "60vh",
           bottom: "-5%",
           right: "-10%",
-          background: "radial-gradient(ellipse at center, rgba(255,140,100,0.15) 0%, rgba(255,120,80,0.04) 40%, transparent 70%)",
+          background: "radial-gradient(ellipse at center, rgba(255,140,100,0.05) 0%, rgba(255,120,80,0.015) 40%, transparent 70%)",
           filter: "blur(60px)",
         }}
       />
