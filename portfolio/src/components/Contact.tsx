@@ -64,9 +64,9 @@ export default function Contact() {
             className="text-lg leading-relaxed mb-6"
             style={{ color: "var(--muted)" }}
           >
-            Costruisco siti WordPress, e-commerce e interfacce in React. 
-            Sviluppo soluzioni AI su misura — chatbot, tool interni e workflow automatizzati — facilmente integrabili in qualsiasi contesto web. 
-            <br/>Freelance da Verona, disponibile da remoto.
+            Costruisco <strong style={{ color: "var(--text)" }}>siti WordPress</strong>, <strong style={{ color: "var(--text)" }}>e-commerce</strong> e <strong style={{ color: "var(--text)" }}>interfacce in React</strong>. Progetto soluzioni web solide, veloci e pensate per crescere nel tempo.
+ Disponibile anche per <strong style={{ color: "var(--text)" }}>consulenze AI</strong> e integrazioni su misura.
+            <br/>Freelance da <strong style={{ color: "var(--text)" }}>Verona</strong>, disponibile da remoto.
           </motion.p>
 
           {/* Availability */}
