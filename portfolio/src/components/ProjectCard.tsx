@@ -22,7 +22,12 @@ export default function ProjectCard({ project, index }: Props) {
     >
       {/* Image */}
       {project.image && (
-        <div className="relative overflow-hidden rounded-lg rounded-b-none -mx-1 -mt-1 h-60">
+        <a
+          href={project.liveUrl || project.repoUrl || "#"}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="relative block overflow-hidden rounded-lg rounded-b-none -mx-1 -mt-1 h-60 cursor-pointer"
+        >
           <Image
             src={project.image}
             alt={project.name}
@@ -32,7 +37,7 @@ export default function ProjectCard({ project, index }: Props) {
             className="object-cover object-top transition-transform duration-300 hover:scale-105"
             style={{ background: "var(--surface-2)" }}
           />
-        </div>
+        </a>
       )}
 
       {/* Header */}
