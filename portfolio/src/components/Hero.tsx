@@ -279,7 +279,7 @@ function OrbitAnimation() {
   );
 }
 
-const TAGLINE = "14 anni di esperienza in WordPress, JavaScript e interfacce web. Dai siti aziendali alle dashboard crypto.";
+const TAGLINE = "Trasformo le tue idee in prodotti digitali ad alte prestazioni. Specializzato in Web Development e Soluzioni Custom basate su Intelligenza Artificiale.";
 
 const SERVICES = [
   { icon: Globe,     label: "Siti WordPress" },
