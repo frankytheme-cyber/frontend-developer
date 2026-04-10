@@ -332,7 +332,7 @@ export default function Hero() {
         className="text-xs font-semibold tracking-[0.25em] uppercase mb-8"
         style={{ color: "var(--accent)", fontFamily: "var(--font-mono)" }}
       >
-        Frontend Developer · Verona, Italy
+        Tool AI · Siti Web Professionali · Verona
       </motion.p>
 
       {/* Heading + Orbit animation */}
@@ -341,7 +341,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.18, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="text-[clamp(3rem,8vw,6rem)] font-black leading-[0.92] tracking-[-0.03em] mb-8"
+          className="text-[clamp(3rem,8vw,6rem)] font-black leading-[0.92] tracking-[-0.03em] mb-4"
           style={{ color: "var(--text)" }}
         >
           Simone
@@ -349,6 +349,15 @@ export default function Hero() {
           Puliti
           <span style={{ color: "var(--accent)" }}>.</span>
         </motion.h1>
+        <motion.h2
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.26, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="text-base font-semibold tracking-[0.12em] uppercase mb-8"
+          style={{ color: "var(--muted)", fontFamily: "var(--font-mono)" }}
+        >
+          Sviluppo Tool AI · Siti WordPress · App React/Next.js
+        </motion.h2>
         {/* Cloud overlay — behind the orbit animation */}
         <div
           className="absolute -right-[10%] top-1/2 -translate-y-1/2 w-[65%] aspect-square pointer-events-none hidden lg:block"
@@ -407,17 +416,17 @@ export default function Hero() {
         className="flex flex-wrap gap-3 mb-16"
       >
         <a
-          href="#progetti-web"
+          href="#contatti"
           className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-200"
           style={{ background: "var(--accent)", color: "#fff" }}
           onMouseEnter={e => (e.currentTarget.style.opacity = "0.85")}
           onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
         >
-          Vedi progetti
+          Parliamo del tuo progetto
           <ArrowUpRight className="w-4 h-4" />
         </a>
         <a
-          href="#contatti"
+          href="#progetti-web"
           className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-200"
           style={{ border: "1px solid var(--border)", color: "var(--muted)" }}
           onMouseEnter={e => {
@@ -429,7 +438,16 @@ export default function Hero() {
             e.currentTarget.style.color = "var(--muted)";
           }}
         >
-          Contattami
+          Scopri i miei progetti
+        </a>
+        <a
+          href="/blog"
+          className="inline-flex items-center gap-1.5 px-3 py-3 text-sm font-medium transition-colors duration-200"
+          style={{ color: "var(--muted-2)", fontFamily: "var(--font-mono)" }}
+          onMouseEnter={e => (e.currentTarget.style.color = "var(--text)")}
+          onMouseLeave={e => (e.currentTarget.style.color = "var(--muted-2)")}
+        >
+          Leggi il blog →
         </a>
       </motion.div>
 

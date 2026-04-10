@@ -28,12 +28,18 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Simone Puliti — Frontend Developer Verona",
-    template: "%s | Simone Puliti Frontend Developer",
+    default: "Simone Puliti — Tool AI & Siti Web · Verona",
+    template: "%s | Simone Puliti — Tool AI & Web Developer",
   },
   description:
-    "Frontend Developer freelance a Verona con 14 anni di esperienza. Specializzato in WordPress, JavaScript e interfacce fintech/DeFi. Temi custom, e-commerce, tool finanza digitale.",
+    "Freelance a Verona: sviluppo tool AI, siti WordPress e app React/Next.js. 14 anni di esperienza. Contattami per un preventivo gratuito.",
   keywords: [
+    "sviluppo tool AI",
+    "sviluppatore AI Verona",
+    "integrazione intelligenza artificiale",
+    "assistente AI personalizzato",
+    "automazione AI aziendale",
+    "Next.js freelance Italia",
     "frontend developer Verona",
     "sviluppatore web Verona",
     "WordPress Verona",
@@ -42,9 +48,6 @@ export const metadata: Metadata = {
     "JavaScript developer Verona",
     "sviluppatore freelance Verona",
     "web developer Veneto",
-    "DeFi frontend developer",
-    "fintech developer Verona",
-    "temi WordPress personalizzati Verona",
     "e-commerce WooCommerce Verona",
   ],
   authors: [{ name: "Simone Puliti", url: siteUrl }],
@@ -70,10 +73,10 @@ export const metadata: Metadata = {
     type: "website",
     locale: "it_IT",
     url: siteUrl,
-    siteName: "Simone Puliti — Frontend Developer",
-    title: "Simone Puliti — Frontend Developer Verona",
+    siteName: "Simone Puliti — Tool AI & Web Developer",
+    title: "Simone Puliti — Tool AI & Siti Web · Verona",
     description:
-      "Frontend Developer freelance a Verona. 14 anni di esperienza in WordPress, JavaScript e interfacce fintech. Temi custom, WooCommerce, tool DeFi.",
+      "Freelance a Verona: sviluppo tool AI su misura, siti WordPress e app React/Next.js. 14 anni di esperienza. Preventivo gratuito.",
     images: [
       {
         url: `${siteUrl}/og-image.png`,
@@ -85,56 +88,93 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Simone Puliti — Frontend Developer Verona",
+    title: "Simone Puliti — Tool AI & Siti Web · Verona",
     description:
-      "Frontend Developer freelance a Verona. 14 anni in WordPress, JavaScript, fintech e DeFi.",
+      "Sviluppo tool AI personalizzati, siti WordPress e app React/Next.js. Freelance a Verona, disponibile da remoto.",
     images: [`${siteUrl}/og-image.png`],
     creator: "@simonepuliti",
   },
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Simone Puliti",
-  jobTitle: "Frontend Developer",
-  description:
-    "Frontend Developer freelance con oltre 14 anni di esperienza. Specializzato in WordPress, JavaScript, e-commerce e interfacce fintech/DeFi. Basato a Verona, disponibile in tutto il Veneto e da remoto.",
-  url: siteUrl,
-  email: "simowebdesigner@gmail.com",
-  sameAs: [
-    "https://github.com/simonepuliti",
-    "https://linkedin.com/in/simone-puliti-23071898",
-  ],
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Verona",
-    addressRegion: "Veneto",
-    addressCountry: "IT",
-  },
-  areaServed: ["Verona", "Veneto", "Italia"],
-  hasOccupation: {
-    "@type": "Occupation",
-    name: "Frontend Developer",
-    occupationLocation: {
-      "@type": "City",
-      name: "Verona",
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Simone Puliti",
+    jobTitle: "Frontend Developer & AI Specialist",
+    description:
+      "Frontend Developer freelance con oltre 14 anni di esperienza. Sviluppo tool AI personalizzati, siti WordPress, e-commerce e app React/Next.js. Basato a Verona, disponibile in tutto il Veneto e da remoto.",
+    url: siteUrl,
+    email: "simowebdesigner@gmail.com",
+    sameAs: [
+      "https://github.com/simonepuliti",
+      "https://linkedin.com/in/simone-puliti-23071898",
+    ],
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Verona",
+      addressRegion: "Veneto",
+      addressCountry: "IT",
     },
-    skills: "WordPress, React, Next.js, TypeScript, WooCommerce, DeFi, Fintech",
+    areaServed: ["Verona", "Veneto", "Italia"],
+    hasOccupation: {
+      "@type": "Occupation",
+      name: "Frontend Developer & AI Specialist",
+      occupationLocation: { "@type": "City", name: "Verona" },
+      skills: "WordPress, React, Next.js, TypeScript, WooCommerce, Tool AI, Claude API, OpenAI API, Automazione AI",
+    },
+    knowsAbout: [
+      "Tool AI personalizzati",
+      "Intelligenza Artificiale",
+      "Claude API",
+      "OpenAI API",
+      "Automazione AI",
+      "WordPress",
+      "JavaScript",
+      "React",
+      "Next.js",
+      "TypeScript",
+      "WooCommerce",
+      "Tailwind CSS",
+    ],
   },
-  knowsAbout: [
-    "WordPress",
-    "JavaScript",
-    "React",
-    "Next.js",
-    "TypeScript",
-    "WooCommerce",
-    "DeFi",
-    "Uniswap",
-    "Fintech",
-    "Tailwind CSS",
-  ],
-};
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: "Simone Puliti — Tool AI & Web Development",
+    url: siteUrl,
+    description:
+      "Sviluppo tool AI personalizzati, siti WordPress, e-commerce WooCommerce e app React/Next.js. Freelance a Verona, disponibile da remoto in tutta Italia.",
+    provider: { "@type": "Person", name: "Simone Puliti" },
+    areaServed: ["Verona", "Veneto", "Italia"],
+    serviceType: [
+      "Sviluppo Tool AI",
+      "Integrazione Claude API",
+      "Integrazione OpenAI API",
+      "Automazione AI aziendale",
+      "Sviluppo WordPress",
+      "E-commerce WooCommerce",
+      "Sviluppo React / Next.js",
+    ],
+    offers: [
+      {
+        "@type": "Offer",
+        name: "Sviluppo Tool AI Personalizzato",
+        description: "Assistenti AI, chatbot e automazioni su misura per la tua azienda.",
+      },
+      {
+        "@type": "Offer",
+        name: "Sito WordPress Professionale",
+        description: "Siti WordPress custom, veloci e ottimizzati SEO.",
+      },
+      {
+        "@type": "Offer",
+        name: "App React / Next.js",
+        description: "Interfacce moderne con React e Next.js, ottimizzate per performance e SEO.",
+      },
+    ],
+  },
+];
 
 export default function RootLayout({
   children,

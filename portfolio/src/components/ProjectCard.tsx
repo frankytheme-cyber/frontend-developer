@@ -30,7 +30,7 @@ export default function ProjectCard({ project, index }: Props) {
         >
           <Image
             src={project.image}
-            alt={project.name}
+            alt={`${project.name} — ${project.tech.slice(0, 2).join(', ')} | Simone Puliti`}
             fill
             loading="lazy"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"

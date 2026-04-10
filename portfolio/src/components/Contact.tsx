@@ -64,9 +64,9 @@ export default function Contact() {
             className="text-lg leading-relaxed mb-6"
             style={{ color: "var(--muted)" }}
           >
-            Costruisco <strong style={{ color: "var(--text)" }}>siti WordPress</strong>, <strong style={{ color: "var(--text)" }}>e-commerce</strong> e <strong style={{ color: "var(--text)" }}>interfacce in React</strong>. Progetto soluzioni web solide, veloci e pensate per crescere nel tempo.
- Disponibile anche per <strong style={{ color: "var(--text)" }}>consulenze AI</strong> e integrazioni su misura.
-            <br/>Freelance da <strong style={{ color: "var(--text)" }}>Verona</strong>, disponibile da remoto.
+            Sviluppo <strong style={{ color: "var(--text)" }}>tool AI personalizzati</strong>, <strong style={{ color: "var(--text)" }}>siti WordPress</strong> e <strong style={{ color: "var(--text)" }}>app React/Next.js</strong> pensate per convertire e crescere nel tempo.
+            {" "}Dalle <strong style={{ color: "var(--text)" }}>automazioni AI</strong> agli e-commerce: soluzioni su misura per la tua azienda.
+            <br/>Freelance da <strong style={{ color: "var(--text)" }}>Verona</strong>, disponibile da remoto in tutta Italia.
           </motion.p>
 
           {/* Availability */}

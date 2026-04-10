@@ -1,0 +1,130 @@
+---
+title: "Come integrare Claude API in un progetto Next.js"
+description: "Guida pratica per connettere Claude di Anthropic a una web app Next.js: dalla configurazione dell'API key fino a una chat con streaming in tempo reale."
+date: "2026-04-10"
+tags: ["AI", "Next.js", "Claude API"]
+published: true
+---
+
+Vuoi aggiungere un assistente AI alla tua applicazione Next.js? In questa guida ti mostro come integrare **Claude API di Anthropic** in pochi passi, fino ad avere una chat con risposte in streaming.
+
+## Cosa costruiremo
+
+Una semplice interfaccia di chat che:
+- Invia messaggi a Claude tramite le API Route di Next.js
+- Riceve risposte in streaming (le parole appaiono man mano, come ChatGPT)
+- Mantiene la cronologia della conversazione
+
+## 1. Setup dell'API key
+
+Registrati su [console.anthropic.com](https://console.anthropic.com) e genera una API key.
+
+Nel file `.env.local` del tuo progetto:
+
+```bash
+ANTHROPIC_API_KEY=sk-ant-...
+```
+
+Installa il pacchetto ufficiale:
+
+```bash
+npm install @anthropic-ai/sdk
+```
+
+## 2. Crea la route API
+
+In Next.js App Router, le chiamate a servizi esterni vanno fatte in un **Route Handler** lato server — mai esporre la API key al client.
+
+Crea `src/app/api/chat/route.ts`:
+
+```ts
+import Anthropic from "@anthropic-ai/sdk";
+import { NextRequest } from "next/server";
+
+const client = new Anthropic();
+
+export async function POST(req: NextRequest) {
+  const { messages } = await req.json();
+
+  const stream = await client.messages.stream({
+    model: "claude-opus-4-6",
+    max_tokens: 1024,
+    messages,
+  });
+
+  return new Response(stream.toReadableStream());
+}
+```
+
+## 3. Chiama la route dal componente
+
+```tsx
+"use client";
+
+import { useState } from "react";
+
+export default function Chat() {
+  const [messages, setMessages] = useState<{ role: string; content: string }[]>([]);
+  const [input, setInput] = useState("");
+  const [response, setResponse] = useState("");
+
+  async function sendMessage() {
+    const newMessages = [...messages, { role: "user", content: input }];
+    setMessages(newMessages);
+    setInput("");
+    setResponse("");
+
+    const res = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages: newMessages }),
+    });
+
+    const reader = res.body!.getReader();
+    const decoder = new TextDecoder();
+    let full = "";
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      full += decoder.decode(value);
+      setResponse(full);
+    }
+
+    setMessages([...newMessages, { role: "assistant", content: full }]);
+  }
+
+  return (
+    <div>
+      <div>{response}</div>
+      <input value={input} onChange={(e) => setInput(e.target.value)} />
+      <button onClick={sendMessage}>Invia</button>
+    </div>
+  );
+}
+```
+
+## 4. Personalizza il comportamento con il system prompt
+
+Il system prompt definisce la personalità e i limiti dell'assistente. È la parte più importante per un tool AI su misura:
+
+```ts
+const stream = await client.messages.stream({
+  model: "claude-opus-4-6",
+  max_tokens: 1024,
+  system: "Sei un assistente del servizio clienti di Acme Srl. " +
+          "Rispondi solo a domande sui nostri prodotti. " +
+          "Sii conciso e professionale.",
+  messages,
+});
+```
+
+## Conclusione
+
+Con meno di 50 righe di codice hai un'integrazione funzionante con Claude. Da qui puoi:
+
+- Aggiungere un database per salvare le conversazioni
+- Costruire un assistente addestrato sui tuoi dati (RAG)
+- Integrarlo in un e-commerce per supporto clienti automatico
+
+Hai bisogno di integrare Claude o OpenAI nel tuo progetto? [Contattami](/blog#contatti) per una consulenza gratuita.
