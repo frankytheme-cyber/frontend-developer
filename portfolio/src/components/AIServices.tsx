@@ -144,20 +144,16 @@ export default function AIServices() {
             ogni soluzione è costruita per andare in produzione.
           </motion.p>
 
-          <motion.a
+          <a
             href="#contatti"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.25 }}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-200"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-semibold transition-opacity duration-200"
             style={{ background: "var(--accent)", color: "#fff" }}
             onMouseEnter={e => ((e.currentTarget as HTMLAnchorElement).style.opacity = "0.85")}
             onMouseLeave={e => ((e.currentTarget as HTMLAnchorElement).style.opacity = "1")}
           >
             Richiedi una consulenza gratuita
             <ArrowUpRight className="w-4 h-4" />
-          </motion.a>
+          </a>
         </div>
 
         <AiTerminal />
