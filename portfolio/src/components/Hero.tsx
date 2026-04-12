@@ -440,15 +440,6 @@ export default function Hero() {
         >
           Scopri i miei progetti
         </a>
-        <a
-          href="/blog"
-          className="inline-flex items-center gap-1.5 px-3 py-3 text-sm font-medium transition-colors duration-200"
-          style={{ color: "var(--muted-2)", fontFamily: "var(--font-mono)" }}
-          onMouseEnter={e => (e.currentTarget.style.color = "var(--text)")}
-          onMouseLeave={e => (e.currentTarget.style.color = "var(--muted-2)")}
-        >
-          Leggi il blog →
-        </a>
       </motion.div>
 
       {/* Services */}
