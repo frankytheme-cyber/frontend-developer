@@ -1,28 +1,24 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Geist_Mono } from "next/font/google";
-import { ThemeProvider } from "@/components/ThemeProvider";
+import { Playfair_Display, DM_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
+  weight: ["700", "800", "900"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
-
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tuosito.it";
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#141414" },
-  ],
+  themeColor: "#ffffff",
 };
 
 export const metadata: Metadata = {
@@ -182,7 +178,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="it" suppressHydrationWarning>
+    <html lang="it">
       <head>
         <link rel="canonical" href={siteUrl} />
         <link rel="alternate" hrefLang="it" href={siteUrl} />
@@ -195,11 +191,9 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${inter.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} themes={["light", "dark"]}>
-          {children}
-        </ThemeProvider>
-        <Analytics mode="production" />;
+      <body className={`${playfair.variable} ${dmSans.variable} antialiased`}>
+        {children}
+        <Analytics mode="production" />
       </body>
     </html>
   );

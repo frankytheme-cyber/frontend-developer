@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, MapPin } from "lucide-react";
+import { ArrowUpRight, Mail, MapPin } from "lucide-react";
 
 function LinkedInIcon({ className, style }: { className?: string; style?: React.CSSProperties }) {
   return (
@@ -15,158 +15,175 @@ function LinkedInIcon({ className, style }: { className?: string; style?: React.
 
 const EMAIL_PARTS = ["simowebdesigner", "@", "gmail", ".", "com"];
 
-const socialLinks = [
-  {
-    icon: LinkedInIcon,
-    label: "LinkedIn",
-    value: "linkedin.com/in/simone-puliti-23071898",
-    href: "https://linkedin.com/in/simone-puliti-23071898",
-  },
-];
-
 export default function Contact() {
   return (
-    <section id="contatti" className="py-10 md:py-20 px-6 max-w-6xl mx-auto">
-      <div className="w-full h-px mb-16" style={{ background: "var(--border)" }} />
+    <section
+      id="contatti"
+      className="px-6 md:px-12 lg:px-20"
+      style={{ background: "var(--bg-warm)" }}
+    >
+      <div className="max-w-7xl mx-auto w-full py-24 md:py-32">
+        {/* Section divider */}
+        <div className="w-full h-px mb-20" style={{ background: "var(--border)" }} />
 
-     
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+          {/* Left */}
+          <div>
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="text-xs font-medium tracking-[0.3em] uppercase mb-8"
+              style={{ color: "var(--muted)" }}
+            >
+              Contatti
+            </motion.p>
 
-      <div className="flex flex-col lg:flex-row items-center justify-between gap-16 pb-10 pt-10 md:pt-20">
-        {/* Left */}
-        <div className="max-w-lg">
-           <motion.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        className="text-xs font-semibold tracking-[0.25em] uppercase mb-6"
-        style={{ color: "var(--accent)", fontFamily: "var(--font-mono)" }}
-      >Contatti
-      </motion.p>
-        
-          <motion.h2
-            initial={{ opacity: 0, y: 12 }}
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.05 }}
+              className="heading-display text-[clamp(2.5rem,7vw,6rem)] mb-10"
+            >
+              Lavoriamo
+              <br />
+              Insieme
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-lg leading-relaxed mb-10 max-w-md"
+              style={{ color: "var(--muted)" }}
+            >
+              Sviluppo <strong style={{ color: "var(--text)" }}>tool AI personalizzati</strong>,{" "}
+              <strong style={{ color: "var(--text)" }}>siti WordPress</strong> e{" "}
+              <strong style={{ color: "var(--text)" }}>app React/Next.js</strong> pensate per
+              convertire e crescere nel tempo. Freelance da{" "}
+              <strong style={{ color: "var(--text)" }}>Verona</strong>, disponibile da remoto in
+              tutta Italia.
+            </motion.p>
+
+            <motion.a
+              href={`mailto:${EMAIL_PARTS.join("")}`}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.15 }}
+              className="inline-flex items-center gap-2 px-8 py-4 text-sm font-semibold tracking-wide uppercase transition-opacity duration-200 hover:opacity-80"
+              style={{ background: "var(--text)", color: "var(--text-light)" }}
+            >
+              Scrivimi
+              <ArrowUpRight className="w-4 h-4" />
+            </motion.a>
+          </div>
+
+          {/* Right — contact details */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.05 }}
-            className="text-[clamp(2rem,5vw,3.5rem)] font-black tracking-[-0.02em] leading-none mb-6"
-            style={{ color: "var(--text)" }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className="flex flex-col gap-8 lg:pt-16"
           >
-            Lavoriamo
-            <br />
-            insieme<span style={{ color: "var(--accent)" }}>.</span>
-          </motion.h2>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-lg leading-relaxed mb-6"
-            style={{ color: "var(--muted)" }}
-          >
-            Sviluppo <strong style={{ color: "var(--text)" }}>tool AI personalizzati</strong>, <strong style={{ color: "var(--text)" }}>siti WordPress</strong> e <strong style={{ color: "var(--text)" }}>app React/Next.js</strong> pensate per convertire e crescere nel tempo.
-            {" "}Dalle <strong style={{ color: "var(--text)" }}>automazioni AI</strong> agli e-commerce: soluzioni su misura per la tua azienda.
-            <br/>Freelance da <strong style={{ color: "var(--text)" }}>Verona</strong>, disponibile da remoto in tutta Italia.
-          </motion.p>
-
-          {/* Availability */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.18 }}
-            className="inline-flex items-center gap-2"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: "var(--accent)" }} />
-              <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: "var(--accent)" }} />
-            </span>
-            <span className="text-base font-medium" style={{ color: "var(--accent)", fontFamily: "var(--font-mono)" }}>
-              Disponibile · Verona / Remote
-            </span>
-          </motion.div>
-        </div>
-
-        {/* Right — links */}
-        <div className="flex flex-col gap-5 lg:pt-2">
-          {/* Email */}
-          <motion.a
-            href={`mailto:${EMAIL_PARTS.join("")}`}
-            initial={{ opacity: 0, x: 12 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.22 }}
-            className="group flex items-center gap-4 transition-colors duration-150"
-            style={{ color: "var(--muted)" }}
-            onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "var(--text)")}
-            onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "var(--muted)")}
-          >
-            <span className="flex items-center justify-center w-9 h-9 rounded-lg transition-colors duration-150" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
-              <Mail className="w-4 h-4" style={{ color: "var(--accent)" }} />
-            </span>
-            <div className="text-left">
-              <p className="text-base" style={{ color: "var(--muted-2)", fontFamily: "var(--font-mono)" }}>Email</p>
-              <p className="text-base font-medium" style={{ fontFamily: "var(--font-mono)" }}>
-                simowebdesigner<span aria-hidden>&#8203;</span>@<span aria-hidden>&#8203;</span>gmail.com
-              </p>
-            </div>
-          </motion.a>
-
-          {socialLinks.map(({ icon: Icon, label, value, href }, i) => (
-            <motion.a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              initial={{ opacity: 0, x: 12 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.29 + i * 0.07 }}
-              className="flex items-center gap-4 transition-colors duration-150"
-              style={{ color: "var(--muted)" }}
-              onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "var(--text)")}
-              onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "var(--muted)")}
+            {/* Email */}
+            <a
+              href={`mailto:${EMAIL_PARTS.join("")}`}
+              className="group flex items-center gap-5 transition-colors duration-150"
             >
-              <span className="flex items-center justify-center w-9 h-9 rounded-lg" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
-                <Icon className="w-4 h-4" style={{ color: "var(--accent)" }} />
+              <span
+                className="flex items-center justify-center w-9 h-9 rounded-lg transition-colors duration-150"
+                style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
+              >
+                <Mail className="w-4 h-4" style={{ color: "#0052ff" }} />
               </span>
               <div>
-                <p className="text-base" style={{ color: "var(--muted-2)", fontFamily: "var(--font-mono)" }}>{label}</p>
-                <p className="text-base font-medium" style={{ fontFamily: "var(--font-mono)" }}>{value}</p>
+                <p className="text-xs font-medium tracking-[0.2em] uppercase mb-1" style={{ color: "var(--muted-2)" }}>
+                  Email
+                </p>
+                <p
+                  className="text-base font-medium group-hover:opacity-70 transition-opacity"
+                  style={{ color: "var(--text)" }}
+                >
+                  simowebdesigner<span aria-hidden>&#8203;</span>@<span aria-hidden>&#8203;</span>gmail.com
+                </p>
               </div>
-            </motion.a>
-          ))}
+            </a>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4 }}
-            className="flex items-center gap-2 mt-2"
-            style={{ color: "var(--muted-2)" }}
-          >
-            <MapPin className="w-3.5 h-3.5 shrink-0" />
-            <span className="text-base" style={{ fontFamily: "var(--font-mono)" }}>Verona, Italia</span>
+            {/* LinkedIn */}
+            <a
+              href="https://linkedin.com/in/simone-puliti-23071898"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-5 transition-colors duration-150"
+            >
+              <span
+                className="flex items-center justify-center w-9 h-9 rounded-lg transition-colors duration-150"
+                style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
+              >
+                <LinkedInIcon className="w-4 h-4" style={{ color: "#0052ff" }} />
+              </span>
+              <div>
+                <p className="text-xs font-medium tracking-[0.2em] uppercase mb-1" style={{ color: "var(--muted-2)" }}>
+                  LinkedIn
+                </p>
+                <p
+                  className="text-base font-medium group-hover:opacity-70 transition-opacity"
+                  style={{ color: "var(--text)" }}
+                >
+                  linkedin.com/in/simone-puliti-23071898
+                </p>
+              </div>
+            </a>
+
+            {/* Location */}
+            <div className="flex items-center gap-5">
+              <span
+                className="flex items-center justify-center w-9 h-9 rounded-lg transition-colors duration-150"
+                style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
+              >
+                <MapPin className="w-4 h-4" style={{ color: "#0052ff" }} />
+              </span>
+              <div>
+                <p className="text-xs font-medium tracking-[0.2em] uppercase mb-1" style={{ color: "var(--muted-2)" }}>
+                  Sede
+                </p>
+                <p className="text-base font-medium" style={{ color: "var(--text)" }}>
+                  Verona, Italia
+                </p>
+              </div>
+            </div>
+
+            {/* Availability */}
+            <div className="flex items-center gap-3 mt-4">
+              <span
+                className="inline-block w-2 h-2 rounded-full"
+                style={{ background: "var(--text)" }}
+              />
+              <span className="text-sm font-medium" style={{ color: "var(--muted)" }}>
+                Disponibile per nuovi progetti
+              </span>
+            </div>
           </motion.div>
         </div>
-      </div>
 
-      {/* Footer */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.5 }}
-        className="flex items-center justify-between mt-24 pt-8"
-        style={{ borderTop: "1px solid var(--border)" }}
-      >
-        <p className="text-xs" style={{ color: "var(--muted-2)", fontFamily: "var(--font-mono)" }}>
-          © {new Date().getFullYear()} Simone Puliti
-        </p>
-        <p className="text-xs" style={{ color: "var(--muted-2)", fontFamily: "var(--font-mono)" }}>
-          {/* Next.js · Tailwind · Framer Motion */}
-        </p>
-      </motion.div>
+        {/* Footer */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+          className="mt-32 pt-8"
+          style={{ borderTop: "1px solid var(--border)" }}
+        >
+          <p className="text-xs font-medium tracking-wide" style={{ color: "var(--muted-2)" }}>
+            &copy; {new Date().getFullYear()} Simone Puliti
+          </p>
+        </motion.div>
+      </div>
     </section>
   );
 }
