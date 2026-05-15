@@ -20,20 +20,28 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tuosito.it";
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#141414" },
+    { media: "(prefers-color-scheme: light)", color: "#f4f1eb" },
+    { media: "(prefers-color-scheme: dark)", color: "#141a1a" },
   ],
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Simone Puliti — Tool AI & Siti Web · Verona",
-    template: "%s | Simone Puliti — Tool AI & Web Developer",
+    default: "Simone Puliti — Web Design, Tool AI & Siti Web · Verona",
+    template: "%s | Simone Puliti — Web Design & Web Developer",
   },
   description:
-    "Freelance a Verona: sviluppo tool AI, siti WordPress e app React/Next.js. 14 anni di esperienza. Contattami per un preventivo gratuito.",
+    "Web designer e developer freelance a Verona: web design, tool AI, siti WordPress e app React/Next.js. 14 anni di esperienza. Preventivo gratuito.",
   keywords: [
+    "web design Verona",
+    "web designer Verona",
+    "webdesign Verona",
+    "web design Veneto",
+    "design siti web Verona",
+    "progettazione siti web Verona",
+    "UI design Verona",
+    "UX design Verona",
     "sviluppo tool AI",
     "sviluppatore AI Verona",
     "integrazione intelligenza artificiale",
@@ -73,10 +81,10 @@ export const metadata: Metadata = {
     type: "website",
     locale: "it_IT",
     url: siteUrl,
-    siteName: "Simone Puliti — Tool AI & Web Developer",
-    title: "Simone Puliti — Tool AI & Siti Web · Verona",
+    siteName: "Simone Puliti — Web Design & Web Developer",
+    title: "Simone Puliti — Web Design, Tool AI & Siti Web · Verona",
     description:
-      "Freelance a Verona: sviluppo tool AI su misura, siti WordPress e app React/Next.js. 14 anni di esperienza. Preventivo gratuito.",
+      "Web designer e developer freelance a Verona: web design, tool AI su misura, siti WordPress e app React/Next.js. 14 anni di esperienza.",
     images: [
       {
         url: `${siteUrl}/og-image.png`,
@@ -88,9 +96,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Simone Puliti — Tool AI & Siti Web · Verona",
+    title: "Simone Puliti — Web Design, Tool AI & Siti Web · Verona",
     description:
-      "Sviluppo tool AI personalizzati, siti WordPress e app React/Next.js. Freelance a Verona, disponibile da remoto.",
+      "Web design, tool AI personalizzati, siti WordPress e app React/Next.js. Freelance a Verona, disponibile da remoto.",
     images: [`${siteUrl}/og-image.png`],
     creator: "@simonepuliti",
   },
@@ -101,9 +109,9 @@ const jsonLd = [
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Simone Puliti",
-    jobTitle: "Frontend Developer & AI Specialist",
+    jobTitle: "Web Designer, Frontend Developer & AI Specialist",
     description:
-      "Frontend Developer freelance con oltre 14 anni di esperienza. Sviluppo tool AI personalizzati, siti WordPress, e-commerce e app React/Next.js. Basato a Verona, disponibile in tutto il Veneto e da remoto.",
+      "Web designer e Frontend Developer freelance con oltre 14 anni di esperienza. Web design, tool AI personalizzati, siti WordPress, e-commerce e app React/Next.js. Basato a Verona, disponibile in tutto il Veneto e da remoto.",
     url: siteUrl,
     email: "simowebdesigner@gmail.com",
     sameAs: [
@@ -119,11 +127,15 @@ const jsonLd = [
     areaServed: ["Verona", "Veneto", "Italia"],
     hasOccupation: {
       "@type": "Occupation",
-      name: "Frontend Developer & AI Specialist",
+      name: "Web Designer, Frontend Developer & AI Specialist",
       occupationLocation: { "@type": "City", name: "Verona" },
-      skills: "WordPress, React, Next.js, TypeScript, WooCommerce, Tool AI, Claude API, OpenAI API, Automazione AI",
+      skills: "Web Design, UI Design, UX Design, WordPress, React, Next.js, TypeScript, WooCommerce, Tool AI, Claude API, OpenAI API, Automazione AI",
     },
     knowsAbout: [
+      "Web Design",
+      "UI Design",
+      "UX Design",
+      "Progettazione siti web",
       "Tool AI personalizzati",
       "Intelligenza Artificiale",
       "Claude API",
@@ -141,13 +153,16 @@ const jsonLd = [
   {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    name: "Simone Puliti — Tool AI & Web Development",
+    name: "Simone Puliti — Web Design, Tool AI & Web Development",
     url: siteUrl,
     description:
-      "Sviluppo tool AI personalizzati, siti WordPress, e-commerce WooCommerce e app React/Next.js. Freelance a Verona, disponibile da remoto in tutta Italia.",
+      "Web design, sviluppo tool AI personalizzati, siti WordPress, e-commerce WooCommerce e app React/Next.js. Freelance a Verona, disponibile da remoto in tutta Italia.",
     provider: { "@type": "Person", name: "Simone Puliti" },
     areaServed: ["Verona", "Veneto", "Italia"],
     serviceType: [
+      "Web Design",
+      "UI/UX Design",
+      "Progettazione siti web",
       "Sviluppo Tool AI",
       "Integrazione Claude API",
       "Integrazione OpenAI API",
@@ -157,6 +172,11 @@ const jsonLd = [
       "Sviluppo React / Next.js",
     ],
     offers: [
+      {
+        "@type": "Offer",
+        name: "Web Design su misura",
+        description: "Progettazione UI/UX e web design custom orientati a conversione e brand identity.",
+      },
       {
         "@type": "Offer",
         name: "Sviluppo Tool AI Personalizzato",
@@ -196,7 +216,12 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} themes={["light", "dark"]}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="sage-light"
+          enableSystem={false}
+          themes={["sage-light", "sage-dark"]}
+        >
           {children}
         </ThemeProvider>
         <Analytics mode="production" />;

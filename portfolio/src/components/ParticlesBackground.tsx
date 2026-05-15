@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
+import { isDarkTheme } from "@/lib/theme";
 
 type Star = {
   x: number;
@@ -73,7 +74,7 @@ export default function ParticlesBackground() {
     let stars: Star[] = [];
     let shootingStars: ShootingStar[] = [];
     let frameCount = 0;
-    const isDark = theme === "dark" || resolvedTheme === "dark";
+    const isDark = isDarkTheme(theme) || isDarkTheme(resolvedTheme);
 
     function spawnShootingStar() {
       if (!canvas) return;

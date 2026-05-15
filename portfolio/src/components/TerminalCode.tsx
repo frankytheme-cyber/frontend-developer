@@ -63,9 +63,9 @@ export default function TerminalCode({
       transition={{ delay: 0.6, duration: 0.4 }}
       className={["rounded-xl overflow-hidden border max-w-xl", className].filter(Boolean).join(" ")}
       style={{
-        background: "var(--card-bg)",
+        background: "var(--surface)",
         borderColor: "var(--card-border)",
-        boxShadow: "0 4px 24px rgba(0,0,0,0.15)",
+        boxShadow: "0 4px 24px rgba(0,0,0,0.08)",
       }}
     >
       {/* Title bar */}

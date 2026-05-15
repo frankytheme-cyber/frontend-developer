@@ -20,10 +20,11 @@ export default function BlogCard({ post }: Props) {
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className="group flex flex-col gap-4 p-6 rounded-xl transition-colors duration-200"
+      className="group flex flex-col gap-4 p-6 transition-colors duration-200"
       style={{
         background: "var(--surface)",
         border: "1px solid var(--border)",
+        borderRadius: "2px",
         textDecoration: "none",
       }}
       onMouseEnter={(e) => {

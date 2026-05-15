@@ -17,8 +17,8 @@ export default function ProjectCard({ project, index }: Props) {
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.45, delay: index * 0.06 }}
-      className="flex flex-col gap-4 rounded-xl overflow-hidden"
-      style={{ background: "var(--surface)" }}
+      className="flex flex-col gap-4 overflow-hidden"
+      style={{ background: "var(--surface)", borderRadius: "2px" }}
     >
       {/* Image */}
       {project.image && (
@@ -26,7 +26,7 @@ export default function ProjectCard({ project, index }: Props) {
           href={project.liveUrl || project.repoUrl || "#"}
           target="_blank"
           rel="noopener noreferrer"
-          className="relative block overflow-hidden rounded-lg rounded-b-none -mx-1 -mt-1 h-60 cursor-pointer"
+          className="relative block overflow-hidden h-60 cursor-pointer"
         >
           <Image
             src={project.image}

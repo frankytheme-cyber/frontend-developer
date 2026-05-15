@@ -6,7 +6,7 @@ import Contact from "@/components/Contact";
 import ParticlesBackground from "@/components/ParticlesBackground";
 import AuroraBackground from "@/components/AuroraBackground";
 import LightMeshBackground from "@/components/LightMeshBackground";
-import ThemeToggle from "@/components/ThemeToggle";
+import Nav from "@/components/Nav";
 
 export default function Home() {
   return (
@@ -14,12 +14,16 @@ export default function Home() {
       <AuroraBackground />
       <LightMeshBackground />
       <ParticlesBackground />
-      <ThemeToggle />
+      <Nav />
       <div className="relative z-10">
         <Hero />
-        <AIServices />
+        <div className="section-dark">
+          <AIServices />
+        </div>
         <ProjectsCrypto />
-<ProjectsWeb />
+        <div className="section-dark">
+          <ProjectsWeb />
+        </div>
         <Contact />
       </div>
     </main>

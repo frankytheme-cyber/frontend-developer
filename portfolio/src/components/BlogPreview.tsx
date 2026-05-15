@@ -20,7 +20,7 @@ export default function BlogPreview() {
             Articoli
           </p>
           <h2
-            className="text-[clamp(2rem,5vw,3.5rem)] font-black tracking-[-0.02em] leading-none"
+            className="text-[clamp(1.65rem,4vw,2.75rem)] font-black tracking-[-0.02em] leading-none"
             style={{ color: "var(--text)" }}
           >
             Dal Blog<span style={{ color: "var(--accent)" }}>.</span>

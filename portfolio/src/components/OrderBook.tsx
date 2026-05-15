@@ -144,11 +144,11 @@ export default function OrderBook() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4 }}
-      className="rounded-xl overflow-hidden border w-full lg:max-w-sm shrink-0"
+      className="overflow-hidden border w-full lg:max-w-sm shrink-0"
       style={{
-        background: "var(--card-bg)",
+        background: "var(--surface)",
         borderColor: "var(--card-border)",
-        boxShadow: "0 4px 32px rgba(0,0,0,0.2)",
+        borderRadius: "2px",
         fontFamily: "var(--font-mono)",
         fontSize: "11px",
       }}
@@ -262,7 +262,7 @@ export default function OrderBook() {
 
       {/* Mid price footer */}
       <div className="flex items-center justify-between px-3 py-2"
-        style={{ background: "var(--surface-2)" }}>
+        style={{ background: "var(--surface)" }}>
         <span
           className="font-bold text-sm"
           style={{

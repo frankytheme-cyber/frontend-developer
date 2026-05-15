@@ -2,6 +2,7 @@
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { isDarkTheme } from "@/lib/theme";
 
 export default function AuroraBackground() {
   const { resolvedTheme } = useTheme();
@@ -12,7 +13,7 @@ export default function AuroraBackground() {
   }, []);
 
   if (!mounted) return null;
-  if (resolvedTheme !== "dark") return null;
+  if (!isDarkTheme(resolvedTheme)) return null;
 
   return (
     <div

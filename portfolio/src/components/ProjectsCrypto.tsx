@@ -30,7 +30,7 @@ export default function ProjectsCrypto() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.05 }}
-            className="text-[clamp(2rem,5vw,3.5rem)] font-black tracking-[-0.02em] leading-none mb-4"
+            className="text-[clamp(1.65rem,4vw,2.75rem)] font-black tracking-[-0.02em] leading-none mb-4"
             style={{ color: "var(--text)" }}
           >
             Dashboard & Tool
@@ -62,9 +62,9 @@ export default function ProjectsCrypto() {
             key={p}
             className="text-sm font-medium px-3 py-1 rounded-full"
             style={{
-              background: "rgba(147,197,253,0.05)",
-              border: "1px solid rgba(147,197,253,0.2)",
-              color: "#0d68fb",
+              background: "var(--accent-dim)",
+              border: "1px solid var(--badge-border)",
+              color: "var(--accent)",
               fontFamily: "var(--font-mono)",
             }}
           >

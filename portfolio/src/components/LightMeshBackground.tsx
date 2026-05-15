@@ -2,6 +2,7 @@
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { isLightTheme } from "@/lib/theme";
 
 export default function LightMeshBackground() {
   const { resolvedTheme } = useTheme();
@@ -12,7 +13,7 @@ export default function LightMeshBackground() {
   }, []);
 
   if (!mounted) return null;
-  if (resolvedTheme !== "light") return null;
+  if (!isLightTheme(resolvedTheme)) return null;
 
   return (
     <div

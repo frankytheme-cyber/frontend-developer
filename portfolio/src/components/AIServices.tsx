@@ -52,8 +52,12 @@ function AiTerminal() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: 0.2 }}
-      className="shrink-0 w-full lg:max-w-md lg:w-[420px] rounded-xl overflow-hidden"
-      style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
+      className="shrink-0 w-full lg:max-w-md lg:w-[420px] overflow-hidden"
+      style={{
+        background: "var(--surface)",
+        border: "1px solid var(--border)",
+        borderRadius: "2px",
+      }}
     >
       {/* Terminal bar */}
       <div
@@ -102,8 +106,6 @@ function AiTerminal() {
 export default function AIServices() {
   return (
     <section id="tool-ai" className="py-10 md:py-20 px-6 max-w-6xl mx-auto">
-      <div className="w-full h-px mb-16" style={{ background: "var(--border)" }} />
-
       <div className="flex flex-col lg:flex-row lg:items-start gap-8 lg:gap-12 mb-12 pb-10 pt-10 md:pt-20">
         {/* Left */}
         <div className="min-w-0 flex-1">
@@ -122,7 +124,7 @@ export default function AIServices() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.05 }}
-            className="text-[clamp(2rem,5vw,3.5rem)] font-black tracking-[-0.02em] leading-none mb-4"
+            className="text-[clamp(1.65rem,4vw,2.75rem)] font-black tracking-[-0.02em] leading-none mb-4"
             style={{ color: "var(--text)" }}
           >
             Tool AI
@@ -146,8 +148,8 @@ export default function AIServices() {
 
           <a
             href="#contatti"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-semibold transition-opacity duration-200"
-            style={{ background: "var(--accent)", color: "#fff" }}
+            className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold transition-opacity duration-200"
+            style={{ background: "#171412", color: "#fff", borderRadius: "2px" }}
             onMouseEnter={e => ((e.currentTarget as HTMLAnchorElement).style.opacity = "0.85")}
             onMouseLeave={e => ((e.currentTarget as HTMLAnchorElement).style.opacity = "1")}
           >
@@ -172,8 +174,8 @@ export default function AIServices() {
             key={tech}
             className="text-sm font-medium px-3 py-1 rounded-full"
             style={{
-              background: "rgba(0,82,255,0.06)",
-              border: "1px solid rgba(0,82,255,0.18)",
+              background: "var(--accent-dim)",
+              border: "1px solid var(--badge-border)",
               color: "var(--accent)",
               fontFamily: "var(--font-mono)",
             }}
@@ -192,12 +194,16 @@ export default function AIServices() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.08 * i, duration: 0.4 }}
-            className="flex flex-col gap-3 p-5 rounded-xl"
-            style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
+            className="flex flex-col gap-3 p-5"
+            style={{
+              background: "var(--surface)",
+              border: "1px solid var(--border)",
+              borderRadius: "2px",
+            }}
           >
             <div
               className="flex items-center justify-center w-8 h-8 rounded-lg"
-              style={{ background: "rgba(0,82,255,0.08)" }}
+              style={{ background: "var(--accent-dim)" }}
             >
               <Icon className="w-4 h-4" style={{ color: "var(--accent)" }} />
             </div>

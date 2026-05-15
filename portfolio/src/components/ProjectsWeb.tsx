@@ -1,9 +1,112 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { webProjects } from "@/data/projects";
 import ProjectCard from "./ProjectCard";
 import TerminalCode from "./TerminalCode";
+
+function ProjectsCarousel() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(true);
+
+  const updateButtons = () => {
+    const el = trackRef.current;
+    if (!el) return;
+    setCanPrev(el.scrollLeft > 4);
+    setCanNext(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+  };
+
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    updateButtons();
+    el.addEventListener("scroll", updateButtons, { passive: true });
+    window.addEventListener("resize", updateButtons);
+    return () => {
+      el.removeEventListener("scroll", updateButtons);
+      window.removeEventListener("resize", updateButtons);
+    };
+  }, []);
+
+  const scrollByCard = (dir: 1 | -1) => {
+    const el = trackRef.current;
+    if (!el) return;
+    const card = el.querySelector<HTMLElement>("[data-carousel-item]");
+    const step = card ? card.offsetWidth + 32 : el.clientWidth * 0.9;
+    el.scrollBy({ left: step * dir, behavior: "smooth" });
+  };
+
+  return (
+    <div className="relative">
+      <div
+        ref={trackRef}
+        className="flex gap-8 overflow-x-auto pb-4 -mx-6 px-6 snap-x snap-mandatory scroll-smooth"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+      >
+        <style jsx>{`
+          div::-webkit-scrollbar { display: none; }
+        `}</style>
+        {webProjects.map((project, i) => (
+          <div
+            key={project.id}
+            data-carousel-item
+            className="snap-start shrink-0 basis-[85%] sm:basis-[calc((100%-2rem)/2)] lg:basis-[calc((100%-4rem)/3)]"
+          >
+            <ProjectCard project={project} index={i} />
+          </div>
+        ))}
+      </div>
+
+      <div className="flex items-center justify-between mt-6">
+        <p
+          className="text-xs font-medium tracking-wide"
+          style={{ color: "var(--muted-2)", fontFamily: "var(--font-mono)" }}
+        >
+          {webProjects.length} progetti — scorri per esplorare
+        </p>
+        <div className="flex items-center" style={{ gap: "8px" }}>
+          <button
+            type="button"
+            onClick={() => scrollByCard(-1)}
+            disabled={!canPrev}
+            className="flex items-center justify-center w-10 h-10 transition-all duration-150"
+            style={{
+              background: "var(--surface)",
+              border: "1px solid var(--border)",
+              borderRadius: "2px",
+              color: canPrev ? "var(--text)" : "var(--muted-2)",
+              opacity: canPrev ? 1 : 0.4,
+              cursor: canPrev ? "pointer" : "not-allowed",
+            }}
+            aria-label="Progetto precedente"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+          <button
+            type="button"
+            onClick={() => scrollByCard(1)}
+            disabled={!canNext}
+            className="flex items-center justify-center w-10 h-10 transition-all duration-150"
+            style={{
+              background: "var(--surface)",
+              border: "1px solid var(--border)",
+              borderRadius: "2px",
+              color: canNext ? "var(--text)" : "var(--muted-2)",
+              opacity: canNext ? 1 : 0.4,
+              cursor: canNext ? "pointer" : "not-allowed",
+            }}
+            aria-label="Progetto successivo"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function ProjectsWeb() {
   return (
@@ -30,7 +133,7 @@ export default function ProjectsWeb() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.05 }}
-            className="text-[clamp(2rem,5vw,3.5rem)] font-black tracking-[-0.02em] leading-none mb-4"
+            className="text-[clamp(1.65rem,4vw,2.75rem)] font-black tracking-[-0.02em] leading-none mb-4"
             style={{ color: "var(--text)" }}
           >
             Siti Web
@@ -59,11 +162,7 @@ export default function ProjectsWeb() {
         <TerminalCode className="shrink-0 w-full lg:max-w-md lg:w-[420px]" />
       </div>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {webProjects.map((project, i) => (
-          <ProjectCard key={project.id} project={project} index={i} />
-        ))}
-      </div>
+      <ProjectsCarousel />
     </section>
   );
 }

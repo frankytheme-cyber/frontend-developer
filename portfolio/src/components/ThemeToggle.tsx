@@ -3,6 +3,7 @@
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { Sun, Moon } from "lucide-react";
+import { isDarkTheme } from "@/lib/theme";
 
 export default function ThemeToggle() {
   const { setTheme, resolvedTheme } = useTheme();
@@ -22,12 +23,12 @@ export default function ThemeToggle() {
     );
   }
 
-  const isDark = resolvedTheme === "dark";
+  const isDark = isDarkTheme(resolvedTheme);
 
   return (
     <button
       type="button"
-      onClick={() => setTheme(isDark ? "light" : "dark")}
+      onClick={() => setTheme(isDark ? "sage-light" : "sage-dark")}
       className="fixed top-4 right-6 z-20 flex items-center justify-center w-9 h-9 rounded-lg transition-colors duration-200 cursor-pointer"
       style={{ background: "var(--surface)", border: "1px solid var(--border)", color: "var(--muted)" }}
       onMouseEnter={e => {
