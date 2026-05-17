@@ -21,7 +21,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tuosito.it";
 export const viewport: Viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#f4f1eb" },
-    { media: "(prefers-color-scheme: dark)", color: "#141a1a" },
+    { media: "(prefers-color-scheme: dark)", color: "#29353e" },
   ],
 };
 

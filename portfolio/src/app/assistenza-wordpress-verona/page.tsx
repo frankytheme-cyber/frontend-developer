@@ -202,7 +202,7 @@ export default function AssistenzaWordPressVeronaPage() {
             <a
               href="#contatti"
               className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold transition-opacity"
-              style={{ background: "#171412", color: "#fff", borderRadius: "2px" }}
+              style={{ background: "#171412", color: "#fff", borderRadius: "2px", border: "1px solid #2a2724" }}
             >
               Richiedi un check gratuito
               <ArrowUpRight className="w-4 h-4" />

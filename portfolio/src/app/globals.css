@@ -80,28 +80,28 @@ section[id] {
   --section-alt:   #ebe6dc;
 }
 .sage-dark {
-  --bg:            #141a1a;
-  --surface:       #1c2424;
-  --surface-2:     #0f1414;
-  --border:        rgba(255, 255, 255, 0.08);
-  --border-soft:   rgba(255, 255, 255, 0.04);
-  --border-hover:  #94b3a8;
-  --text:          #f6f4ef;
-  --muted:         #b8c0c0;
-  --muted-2:       #8a9292;
-  --accent:        #94b3a8;
-  --accent-light:  #cfe1e0;
-  --accent-dim:    rgba(148, 179, 168, 0.12);
-  --accent-2:      #c4a050;
-  --accent-2-soft: rgba(232, 215, 165, 0.18);
-  --badge-text:    #cfe1e0;
-  --badge-bg:      rgba(148, 179, 168, 0.10);
-  --badge-border:  rgba(148, 179, 168, 0.20);
-  --card-bg:       #161d1d;
-  --card-border:   rgba(255, 255, 255, 0.06);
-  --card-bg-hover: #1c2424;
+  --bg:            #29353e;
+  --surface:       #36424b;
+  --surface-2:     #1f2a32;
+  --border:        rgba(255, 255, 255, 0.10);
+  --border-soft:   rgba(255, 255, 255, 0.05);
+  --border-hover:  #b3a8ff;
+  --text:          #f0f4f7;
+  --muted:         #b8c4cc;
+  --muted-2:       #8a98a0;
+  --accent:        #b3a8ff;
+  --accent-light:  #d0c8ff;
+  --accent-dim:    rgba(179, 168, 255, 0.12);
+  --accent-2:      #b3a8ff;
+  --accent-2-soft: rgba(179, 168, 255, 0.18);
+  --badge-text:    #d0c8ff;
+  --badge-bg:      rgba(179, 168, 255, 0.10);
+  --badge-border:  rgba(255, 255, 255, 0.10);
+  --card-bg:       #36424b;
+  --card-border:   rgba(255, 255, 255, 0.10);
+  --card-bg-hover: #404d57;
   --cloud-opacity: 0.18;
-  --section-alt:   #0f1414;
+  --section-alt:   #1f2a32;
 }
 
 /* Rose Quartz */
@@ -130,7 +130,7 @@ section[id] {
   --section-alt:   #fce4e7;
 }
 .rose-dark {
-  --bg:            #1f1517;
+  --bg:            #131516;
   --surface:       #2a1d20;
   --surface-2:     #15090c;
   --border:        rgba(255, 255, 255, 0.08);
@@ -312,15 +312,15 @@ body {
 
 /* Banda scura — applicata sui wrapper delle sezioni alternate */
 .section-dark {
-  background: #171412;
-  --bg:            #171412;
-  --surface:       #1f1c1a;
-  --surface-2:     #2a2724;
+  background: #131516;
+  --bg:            #131516;
+  --surface:       #1c2024;
+  --surface-2:     #0a0c0d;
   --border:        rgba(255, 255, 255, 0.10);
   --border-soft:   rgba(255, 255, 255, 0.06);
   --text:          #ffffff;
-  --muted:         #8e8b86;
-  --muted-2:       #6b6862;
+  --muted:         #8e9398;
+  --muted-2:       #6b7075;
   --accent:        #b3a8ff;
   --accent-light:  #d0c8ff;
   --accent-dim:    rgba(179, 168, 255, 0.12);
@@ -329,10 +329,10 @@ body {
   --badge-text:    #d0c8ff;
   --badge-bg:      rgba(179, 168, 255, 0.08);
   --badge-border:  rgba(255, 255, 255, 0.10);
-  --card-bg:       #1f1c1a;
+  --card-bg:       #1c2024;
   --card-border:   rgba(255, 255, 255, 0.10);
-  --card-bg-hover: #2a2724;
-  --section-alt:   #171412;
+  --card-bg-hover: #252a2f;
+  --section-alt:   #131516;
 }
 
 body {
@@ -509,6 +509,7 @@ body {
   align-items: center;
   gap: 0.5rem;
   padding: 0.625rem 1.25rem;
+  border: 1px solid #2a2724;
   border-radius: 2px;
   font-size: 0.875rem;
   font-weight: 600;

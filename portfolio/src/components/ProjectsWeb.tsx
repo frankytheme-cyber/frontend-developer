@@ -111,8 +111,6 @@ function ProjectsCarousel() {
 export default function ProjectsWeb() {
   return (
     <section id="progetti-web" className="py-10 md:py-20 pt-20 px-6 max-w-6xl mx-auto">
-      {/* Top border */}
-      <div className="w-full h-px mb-16" style={{ background: "var(--border)" }} />
 
     
 

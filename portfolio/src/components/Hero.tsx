@@ -251,7 +251,7 @@ export default function Hero() {
           <a
             href="#contatti"
             className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold transition-all duration-200"
-            style={{ background: "#171412", color: "#fff", borderRadius: "2px" }}
+            style={{ background: "#171412", color: "#fff", borderRadius: "2px", border: "1px solid #2a2724" }}
             onMouseEnter={e => (e.currentTarget.style.opacity = "0.85")}
             onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
           >
