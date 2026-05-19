@@ -22,20 +22,34 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   } catch {
     return {};
   }
+  const articleUrl = `${siteUrl}/blog/${slug}`;
+  const ogImage = meta.image
+    ? (meta.image.startsWith("http") ? meta.image : `${siteUrl}${meta.image}`)
+    : `${siteUrl}/og-image.png`;
   return {
     title: meta.title,
     description: meta.description,
+    alternates: { canonical: articleUrl },
+    keywords: meta.tags,
+    authors: [{ name: "Simone Puliti", url: siteUrl }],
     openGraph: {
       title: meta.title,
       description: meta.description,
       type: "article",
-      url: `${siteUrl}/blog/${slug}`,
+      url: articleUrl,
+      siteName: "Simone Puliti — Web Design & Web Developer",
+      locale: "it_IT",
       publishedTime: meta.date,
+      modifiedTime: meta.updated ?? meta.date,
+      authors: [siteUrl],
+      tags: meta.tags,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: meta.title }],
     },
     twitter: {
       card: "summary_large_image",
       title: meta.title,
       description: meta.description,
+      images: [ogImage],
     },
   };
 }
@@ -58,26 +72,45 @@ export default async function ArticlePage({ params }: Props) {
   }
 
   const { meta, content } = post;
+  const articleUrl = `${siteUrl}/blog/${slug}`;
+  const ogImage = meta.image
+    ? (meta.image.startsWith("http") ? meta.image : `${siteUrl}${meta.image}`)
+    : `${siteUrl}/og-image.png`;
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: meta.title,
-    description: meta.description,
-    datePublished: meta.date,
-    dateModified: meta.date,
-    author: {
-      "@type": "Person",
-      name: "Simone Puliti",
-      url: siteUrl,
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: meta.title,
+      description: meta.description,
+      datePublished: meta.date,
+      dateModified: meta.updated ?? meta.date,
+      author: {
+        "@type": "Person",
+        name: "Simone Puliti",
+        url: siteUrl,
+      },
+      publisher: {
+        "@type": "Person",
+        name: "Simone Puliti",
+        url: siteUrl,
+      },
+      url: articleUrl,
+      mainEntityOfPage: { "@type": "WebPage", "@id": articleUrl },
+      image: [ogImage],
+      keywords: meta.tags?.join(", "),
+      inLanguage: "it-IT",
     },
-    publisher: {
-      "@type": "Person",
-      name: "Simone Puliti",
-      url: siteUrl,
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+        { "@type": "ListItem", position: 2, name: "Blog", item: `${siteUrl}/blog` },
+        { "@type": "ListItem", position: 3, name: meta.title, item: articleUrl },
+      ],
     },
-    url: `${siteUrl}/blog/${slug}`,
-  };
+  ];
 
   return (
     <main className="relative min-h-screen">

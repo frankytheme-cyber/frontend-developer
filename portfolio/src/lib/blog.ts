@@ -11,6 +11,8 @@ export type PostMeta = {
   date: string;
   tags: string[];
   published: boolean;
+  image?: string;
+  updated?: string;
 };
 
 export type Post = {
@@ -35,6 +37,8 @@ export function getAllPosts(): PostMeta[] {
         date: data.date ?? "",
         tags: data.tags ?? [],
         published: data.published ?? false,
+        image: data.image,
+        updated: data.updated,
       } as PostMeta;
     })
     .filter((p) => p.published)
@@ -53,6 +57,8 @@ export function getPostBySlug(slug: string): Post {
       date: data.date ?? "",
       tags: data.tags ?? [],
       published: data.published ?? false,
+      image: data.image,
+      updated: data.updated,
     },
     content,
   };

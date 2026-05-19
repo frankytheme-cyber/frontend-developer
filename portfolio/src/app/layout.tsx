@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tuosito.it";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://simonepuliti.dev";
 
 export const viewport: Viewport = {
   themeColor: [
@@ -105,6 +105,15 @@ export const metadata: Metadata = {
 };
 
 const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Simone Puliti — Web Design & Web Developer",
+    alternateName: "Simone Puliti",
+    url: siteUrl,
+    inLanguage: "it-IT",
+    publisher: { "@type": "Person", name: "Simone Puliti", url: siteUrl },
+  },
   {
     "@context": "https://schema.org",
     "@type": "Person",

@@ -4,7 +4,7 @@ import { ArrowUpRight, BrainCircuit, Workflow, Plug, LayoutDashboard, Check, Mes
 import Contact from "@/components/Contact";
 import Nav from "@/components/Nav";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://tuosito.it";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://simonepuliti.dev";
 const PAGE_URL = `${SITE_URL}/tool-ai-verona`;
 
 export const metadata: Metadata = {

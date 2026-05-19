@@ -1,11 +1,11 @@
 {
-  "name": "Simone Puliti — Frontend Developer Verona",
+  "name": "Simone Puliti — Web Designer & Sviluppatore Tool AI · Verona",
   "short_name": "Simone Puliti",
-  "description": "Frontend Developer freelance a Verona. WordPress, React, Next.js, fintech.",
+  "description": "Web designer e developer freelance a Verona: web design, tool AI, siti WordPress e app React/Next.js.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#0052ff",
+  "background_color": "#f4f1eb",
+  "theme_color": "#3d2fa9",
   "lang": "it",
   "icons": [
     { "src": "/favicon.ico", "sizes": "any", "type": "image/x-icon" }

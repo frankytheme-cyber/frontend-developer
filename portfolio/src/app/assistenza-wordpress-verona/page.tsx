@@ -4,7 +4,7 @@ import { ArrowUpRight, Shield, Zap, Bug, RefreshCw, ShoppingCart, LifeBuoy, Chec
 import Contact from "@/components/Contact";
 import Nav from "@/components/Nav";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://tuosito.it";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://simonepuliti.dev";
 const PAGE_URL = `${SITE_URL}/assistenza-wordpress-verona`;
 
 export const metadata: Metadata = {
