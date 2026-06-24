@@ -18,7 +18,7 @@ export default function ProjectCard({ project, index }: Props) {
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.45, delay: index * 0.06 }}
       className="flex flex-col gap-4 overflow-hidden"
-      style={{ background: "var(--surface)", borderRadius: "2px" }}
+      style={{ background: "var(--surface)", borderRadius: "12px", border: "1px solid #ffffff1a" }}
     >
       {/* Image */}
       {project.image && (

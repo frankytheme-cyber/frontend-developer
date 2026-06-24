@@ -24,7 +24,7 @@ export default function BlogCard({ post }: Props) {
       style={{
         background: "var(--surface)",
         border: "1px solid var(--border)",
-        borderRadius: "2px",
+        borderRadius: "12px",
         textDecoration: "none",
       }}
       onMouseEnter={(e) => {

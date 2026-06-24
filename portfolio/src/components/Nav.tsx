@@ -1,29 +1,23 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useTheme } from "next-themes";
 import { usePathname } from "next/navigation";
-import { Sun, Moon, Menu, X } from "lucide-react";
-import { isDarkTheme } from "@/lib/theme";
+import { Menu, X } from "lucide-react";
 
 const LINKS = [
   { hash: "tool-ai",         label: "Tool AI" },
-  { hash: "progetti-crypto", label: "Progetti Crypto" },
+  { hash: "progetti-crypto", label: "Dashboard & Tool" },
   { hash: "progetti-web",    label: "Progetti Web" },
   { hash: "contatti",        label: "Contatti" },
 ];
 
 export default function Nav() {
-  const { setTheme, resolvedTheme } = useTheme();
   const pathname = usePathname();
   const isHome = pathname === "/";
   const linkHref = (hash: string) => (isHome ? `#${hash}` : `/#${hash}`);
   const logoHref = isHome ? "#top" : "/";
-  const [mounted, setMounted] = useState(false);
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -31,8 +25,6 @@ export default function Nav() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  const isDark = mounted && isDarkTheme(resolvedTheme);
 
   return (
     <>
@@ -71,32 +63,6 @@ export default function Nav() {
           </ul>
 
           <div className="flex items-center" style={{ gap: "8px" }}>
-            {mounted ? (
-              <button
-                type="button"
-                onClick={() => setTheme(isDark ? "sage-light" : "sage-dark")}
-                className="flex items-center justify-center w-9 h-9 transition-colors duration-200 cursor-pointer"
-                style={{ background: "var(--surface)", border: "1px solid var(--border)", color: "var(--muted)", borderRadius: "2px" }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.borderColor = "var(--accent)";
-                  e.currentTarget.style.color = "var(--accent)";
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.borderColor = "var(--border)";
-                  e.currentTarget.style.color = "var(--muted)";
-                }}
-                aria-label={isDark ? "Passa al tema chiaro" : "Passa al tema scuro"}
-              >
-                {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-              </button>
-            ) : (
-              <div
-                className="w-9 h-9"
-                style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "2px" }}
-                aria-hidden
-              />
-            )}
-
             <button
               type="button"
               onClick={() => setOpen(v => !v)}

@@ -198,7 +198,7 @@ export default function AIServices() {
             style={{
               background: "var(--surface)",
               border: "1px solid var(--border)",
-              borderRadius: "2px",
+              borderRadius: "12px",
             }}
           >
             <div

@@ -5,14 +5,12 @@ import ProjectsCrypto from "@/components/ProjectsCrypto";
 import Contact from "@/components/Contact";
 import ParticlesBackground from "@/components/ParticlesBackground";
 import AuroraBackground from "@/components/AuroraBackground";
-import LightMeshBackground from "@/components/LightMeshBackground";
 import Nav from "@/components/Nav";
 
 export default function Home() {
   return (
     <main className="relative min-h-screen">
       <AuroraBackground />
-      <LightMeshBackground />
       <ParticlesBackground />
       <Nav />
       <div className="relative z-10">

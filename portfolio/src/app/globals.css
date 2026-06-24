@@ -27,9 +27,9 @@ section[id] {
 
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-  /* Fallback semantici = sage-light */
-  --bg:            #f4f1eb;
-  --surface:       #ffffff;
+  /* Fallback semantici = sage-dark */
+  --bg:            #161e24;
+  --surface:       #1c2024;
   --surface-2:     #ebe6dc;
   --border:        rgba(23, 20, 18, 0.10);
   --border-soft:   rgba(23, 20, 18, 0.06);
@@ -45,9 +45,9 @@ section[id] {
   --badge-text:    #3d2fa9;
   --badge-bg:      rgba(61, 47, 169, 0.06);
   --badge-border:  rgba(23, 20, 18, 0.06);
-  --card-bg:       #ffffff;
+  --card-bg:       #1c2024;
   --card-border:   rgba(23, 20, 18, 0.10);
-  --card-bg-hover: #f4f1eb;
+  --card-bg-hover: #252a2f;
   --cloud-opacity: 1;
   --section-alt:   #ebe6dc;
 }
@@ -80,8 +80,8 @@ section[id] {
   --section-alt:   #ebe6dc;
 }
 .sage-dark {
-  --bg:            #29353e;
-  --surface:       #36424b;
+  --bg:            #161e24;
+  --surface:       #1c2024;
   --surface-2:     #1f2a32;
   --border:        rgba(255, 255, 255, 0.10);
   --border-soft:   rgba(255, 255, 255, 0.05);
@@ -97,9 +97,9 @@ section[id] {
   --badge-text:    #d0c8ff;
   --badge-bg:      rgba(179, 168, 255, 0.10);
   --badge-border:  rgba(255, 255, 255, 0.10);
-  --card-bg:       #36424b;
+  --card-bg:       #1c2024;
   --card-border:   rgba(255, 255, 255, 0.10);
-  --card-bg-hover: #404d57;
+  --card-bg-hover: #252a2f;
   --cloud-opacity: 0.18;
   --section-alt:   #1f2a32;
 }
@@ -312,8 +312,8 @@ body {
 
 /* Banda scura — applicata sui wrapper delle sezioni alternate */
 .section-dark {
-  background: #131516;
-  --bg:            #131516;
+  background: #161e24;
+  --bg:            #161e24;
   --surface:       #1c2024;
   --surface-2:     #0a0c0d;
   --border:        rgba(255, 255, 255, 0.10);

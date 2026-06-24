@@ -19,10 +19,7 @@ const geistMono = Geist_Mono({
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://simonepuliti.dev";
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f4f1eb" },
-    { media: "(prefers-color-scheme: dark)", color: "#29353e" },
-  ],
+  themeColor: "#161e24",
 };
 
 export const metadata: Metadata = {
@@ -227,9 +224,10 @@ export default function RootLayout({
       <body className={`${inter.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
-          defaultTheme="sage-light"
+          defaultTheme="sage-dark"
+          forcedTheme="sage-dark"
           enableSystem={false}
-          themes={["sage-light", "sage-dark"]}
+          themes={["sage-dark"]}
         >
           {children}
         </ThemeProvider>
