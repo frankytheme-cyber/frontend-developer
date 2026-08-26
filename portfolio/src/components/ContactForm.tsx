@@ -232,7 +232,7 @@ export default function ContactForm() {
           <input
             id="name"
             name="name"
-            placeholder="Nome e cognome o azienda"
+            placeholder="Nome o azienda"
             type="text"
             autoComplete="name"
             className="contact-field"
@@ -251,7 +251,7 @@ export default function ContactForm() {
             id="email"
             name="email"
             type="email"
-            placeholder="email@example.com"
+            placeholder="La tua email"
             autoComplete="email"
             className="contact-field"
             value={values.email}
