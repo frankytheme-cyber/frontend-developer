@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Mail, MapPin } from "lucide-react";
+import ContactForm from "@/components/ContactForm";
 
 function LinkedInIcon({ className, style }: { className?: string; style?: React.CSSProperties }) {
   return (
@@ -19,7 +20,6 @@ const socialLinks = [
   {
     icon: LinkedInIcon,
     label: "LinkedIn",
-    value: "linkedin.com/in/simone-puliti-23071898",
     href: "https://linkedin.com/in/simone-puliti-23071898",
   },
 ];
@@ -29,20 +29,18 @@ export default function Contact() {
     <section id="contatti" className="py-10 md:py-20 px-6 max-w-6xl mx-auto">
       <div className="w-full h-px mb-16" style={{ background: "var(--border)" }} />
 
-     
-
-      <div className="flex flex-col lg:flex-row items-center justify-between gap-16 pb-10 pt-10 md:pt-20">
-        {/* Left */}
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,30rem)] gap-14 lg:gap-16 items-start pb-10 pt-10 md:pt-20">
+        {/* Left — pitch e contatti diretti */}
         <div className="max-w-lg">
-           <motion.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        className="text-xs font-semibold tracking-[0.25em] uppercase mb-6"
-        style={{ color: "var(--accent)", fontFamily: "var(--font-mono)" }}
-      >Contatti
-      </motion.p>
-        
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-xs font-semibold tracking-[0.25em] uppercase mb-6"
+            style={{ color: "var(--accent)", fontFamily: "var(--font-mono)" }}
+          >Contatti
+          </motion.p>
+
           <motion.h2
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -85,69 +83,65 @@ export default function Contact() {
               Disponibile · Verona / Remote
             </span>
           </motion.div>
+
+          {/* Contatti diretti — solo icone, l'indirizzo sta nel link */}
+          <div className="flex flex-col gap-6 mt-10 pt-10" style={{ borderTop: "1px solid var(--border)" }}>
+            <div className="flex items-center gap-3">
+              <motion.a
+                href={`mailto:${EMAIL_PARTS.join("")}`}
+                aria-label="Scrivimi un'email"
+                title="Scrivimi un'email"
+                initial={{ opacity: 0, x: 12 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.22 }}
+                className="flex items-center justify-center w-11 h-11 rounded-lg transition-colors duration-150"
+                style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
+                onMouseEnter={e => (e.currentTarget.style.borderColor = "var(--accent)")}
+                onMouseLeave={e => (e.currentTarget.style.borderColor = "var(--border)")}
+              >
+                <Mail className="w-[18px] h-[18px]" style={{ color: "var(--accent)" }} />
+              </motion.a>
+
+              {socialLinks.map(({ icon: Icon, label, href }, i) => (
+                <motion.a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Profilo ${label}`}
+                  title={`Profilo ${label}`}
+                  initial={{ opacity: 0, x: 12 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.29 + i * 0.07 }}
+                  className="flex items-center justify-center w-11 h-11 rounded-lg transition-colors duration-150"
+                  style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
+                  onMouseEnter={e => (e.currentTarget.style.borderColor = "var(--accent)")}
+                  onMouseLeave={e => (e.currentTarget.style.borderColor = "var(--border)")}
+                >
+                  <Icon className="w-[18px] h-[18px]" style={{ color: "var(--accent)" }} />
+                </motion.a>
+              ))}
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+              className="flex items-center gap-2"
+              style={{ color: "var(--muted-2)" }}
+            >
+              <MapPin className="w-3.5 h-3.5 shrink-0" />
+              <span className="text-base" style={{ fontFamily: "var(--font-mono)" }}>Verona, Italia</span>
+            </motion.div>
+          </div>
         </div>
 
-        {/* Right — links */}
-        <div className="flex flex-col gap-5 lg:pt-2">
-          {/* Email */}
-          <motion.a
-            href={`mailto:${EMAIL_PARTS.join("")}`}
-            initial={{ opacity: 0, x: 12 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.22 }}
-            className="group flex items-center gap-4 transition-colors duration-150"
-            style={{ color: "var(--muted)" }}
-            onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "var(--text)")}
-            onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "var(--muted)")}
-          >
-            <span className="flex items-center justify-center w-9 h-9 rounded-lg transition-colors duration-150" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
-              <Mail className="w-4 h-4" style={{ color: "var(--accent)" }} />
-            </span>
-            <div className="text-left">
-              <p className="text-base" style={{ color: "var(--muted-2)", fontFamily: "var(--font-mono)" }}>Email</p>
-              <p className="text-base font-medium" style={{ fontFamily: "var(--font-mono)" }}>
-                simowebdesigner<span aria-hidden>&#8203;</span>@<span aria-hidden>&#8203;</span>gmail.com
-              </p>
-            </div>
-          </motion.a>
-
-          {socialLinks.map(({ icon: Icon, label, value, href }, i) => (
-            <motion.a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              initial={{ opacity: 0, x: 12 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.29 + i * 0.07 }}
-              className="flex items-center gap-4 transition-colors duration-150"
-              style={{ color: "var(--muted)" }}
-              onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "var(--text)")}
-              onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "var(--muted)")}
-            >
-              <span className="flex items-center justify-center w-9 h-9 rounded-lg" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
-                <Icon className="w-4 h-4" style={{ color: "var(--accent)" }} />
-              </span>
-              <div>
-                <p className="text-base" style={{ color: "var(--muted-2)", fontFamily: "var(--font-mono)" }}>{label}</p>
-                <p className="text-base font-medium" style={{ fontFamily: "var(--font-mono)" }}>{value}</p>
-              </div>
-            </motion.a>
-          ))}
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4 }}
-            className="flex items-center gap-2 mt-2"
-            style={{ color: "var(--muted-2)" }}
-          >
-            <MapPin className="w-3.5 h-3.5 shrink-0" />
-            <span className="text-base" style={{ fontFamily: "var(--font-mono)" }}>Verona, Italia</span>
-          </motion.div>
+        {/* Right — form */}
+        <div className="w-full lg:sticky lg:top-24">
+          <ContactForm />
         </div>
       </div>
 
