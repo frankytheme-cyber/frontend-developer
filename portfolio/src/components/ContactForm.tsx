@@ -192,11 +192,12 @@ export default function ContactForm() {
           <CheckCircle2 className="w-5 h-5" style={{ color: "var(--accent)" }} />
         </span>
         <div>
-          <p className="text-lg font-semibold mb-1" style={{ color: "var(--text)" }}>
-            Messaggio inviato.
+          <p className="text-lg font-semibold mb-2" style={{ color: "var(--text)" }}>
+            Grazie, messaggio ricevuto.
           </p>
           <p className="text-base leading-relaxed" style={{ color: "var(--muted)" }}>
-            Ti rispondo entro 24 ore lavorative, di solito molto prima.
+            Lo leggo io, non un sistema automatico: ti rispondo entro un giorno
+            lavorativo, spesso nel giro di poche ore.
           </p>
         </div>
         <button type="button" className="contact-ghost" onClick={() => setStatus("idle")}>
@@ -231,10 +232,10 @@ export default function ContactForm() {
           <input
             id="name"
             name="name"
+            placeholder="Nome e cognome o azienda"
             type="text"
             autoComplete="name"
             className="contact-field"
-            placeholder="Mario Rossi"
             value={values.name}
             onChange={update("name")}
             disabled={sending}
@@ -250,9 +251,9 @@ export default function ContactForm() {
             id="email"
             name="email"
             type="email"
+            placeholder="email@example.com"
             autoComplete="email"
             className="contact-field"
-            placeholder="mario@azienda.it"
             value={values.email}
             onChange={update("email")}
             disabled={sending}
