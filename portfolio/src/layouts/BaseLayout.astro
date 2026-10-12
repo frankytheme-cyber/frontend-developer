@@ -1,5 +1,6 @@
 ---
 import "@/styles/global.css";
+import Footer from "@/components/Footer.astro";
 
 export type JsonLdEntry = Record<string, unknown>;
 
@@ -78,6 +79,7 @@ const ogImageUrl = ogImage.startsWith("http") ? ogImage : new URL(ogImage, siteU
   </head>
   <body class="antialiased">
     <slot />
+    <Footer />
     <script>
       import { inject } from "@vercel/analytics";
       // Lo script di Vercel Analytics esiste solo quando l'app gira davvero su Vercel
