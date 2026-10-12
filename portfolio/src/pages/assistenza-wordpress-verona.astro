@@ -20,6 +20,19 @@ const title = "Assistenza WordPress a Verona — Manutenzione, Sicurezza e Recup
 const description =
   "Assistenza WordPress professionale a Verona: manutenzione, sicurezza, recupero siti hackerati, ottimizzazione velocità, aggiornamenti. Intervento rapido, anche in emergenza. Preventivo gratuito.";
 
+const keywords = [
+  "assistenza WordPress Verona",
+  "manutenzione WordPress Verona",
+  "sito WordPress hackerato Verona",
+  "ottimizzazione WordPress Verona",
+  "supporto WordPress Verona",
+  "esperto WordPress Verona",
+  "tecnico WordPress Verona",
+  "aggiornamento WordPress Verona",
+  "sicurezza WordPress Verona",
+  "WooCommerce assistenza Verona",
+];
+
 const SERVIZI = [
   { icon: refreshIcon, title: "Manutenzione mensile", description: "Aggiornamenti core, plugin e tema testati prima della messa in produzione. Backup giornalieri, monitoraggio uptime, report mensile chiaro." },
   { icon: shieldIcon, title: "Sicurezza e protezione", description: "Protezione del server, firewall applicativo, doppia autenticazione, scansione malware periodica. Sito al riparo da attacchi automatizzati." },
@@ -65,7 +78,7 @@ const jsonLd = [
 ];
 ---
 
-<BaseLayout title={title} description={description} canonicalPath={pagePath} jsonLd={jsonLd}>
+<BaseLayout title={title} description={description} canonicalPath={pagePath} keywords={keywords} jsonLd={jsonLd}>
   <main class="relative min-h-screen" data-template="landing-page">
     <Nav />
     <div class="relative z-10">

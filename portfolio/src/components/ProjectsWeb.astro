@@ -5,6 +5,10 @@ import TerminalCode from "./TerminalCode.astro";
 import chevronLeft from "lucide-static/icons/chevron-left.svg?raw";
 import chevronRight from "lucide-static/icons/chevron-right.svg?raw";
 
+type Props = { headingLevel?: "h1" | "h2" };
+const { headingLevel = "h2" } = Astro.props;
+const Heading = headingLevel;
+
 const projects = (await getCollection("projects-web")).sort((a, b) => a.data.order - b.data.order);
 ---
 
@@ -14,9 +18,9 @@ const projects = (await getCollection("projects-web")).sort((a, b) => a.data.ord
       <p data-reveal class="text-xs font-semibold tracking-[0.25em] uppercase mb-6" style="color:var(--accent);font-family:var(--font-mono)">
         Progetti Web
       </p>
-      <h2 data-reveal class="text-[clamp(1.65rem,4vw,2.75rem)] font-black tracking-[-0.02em] leading-none mb-4" style="--d:0.05s;color:var(--text)">
+      <Heading data-reveal class="text-[clamp(1.65rem,4vw,2.75rem)] font-black tracking-[-0.02em] leading-none mb-4" style="--d:0.05s;color:var(--text)">
         Siti Web
-      </h2>
+      </Heading>
       <p data-reveal class="text-lg max-w-md mb-4" style="--d:0.15s;color:var(--muted)">
         WordPress, React e Next.js. Dal sito vetrina all'e-commerce complesso.
       </p>

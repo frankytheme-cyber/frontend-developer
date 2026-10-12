@@ -18,6 +18,18 @@ const title = "Sviluppo Tool AI a Verona — Assistenti, Chatbot e Automazioni C
 const description =
   "Sviluppatore Tool AI a Verona: assistenti virtuali, chatbot custom, automazioni con Claude e OpenAI API. Soluzioni su misura per aziende del Veneto. Preventivo gratuito.";
 
+const keywords = [
+  "tool AI Verona",
+  "sviluppo AI Verona",
+  "sviluppatore AI Verona",
+  "assistenti AI Verona",
+  "chatbot personalizzato Verona",
+  "automazione AI Verona",
+  "Claude API Italia",
+  "OpenAI API Italia",
+  "intelligenza artificiale aziendale Verona",
+];
+
 const SERVIZI = [
   { icon: brainIcon, title: "Assistenti virtuali e chatbot", description: "Bot conversazionali addestrati sui dati della tua azienda. Rispondono ai clienti, qualificano i lead e gestiscono FAQ 24/7 in italiano." },
   { icon: workflowIcon, title: "Automazione di processi", description: "Pipeline AI che eliminano attività ripetitive: classificazione email, generazione documenti, riassunti automatici di report o trascrizioni." },
@@ -73,7 +85,7 @@ const jsonLd = [
 ];
 ---
 
-<BaseLayout title={title} description={description} canonicalPath={pagePath} jsonLd={jsonLd}>
+<BaseLayout title={title} description={description} canonicalPath={pagePath} keywords={keywords} jsonLd={jsonLd}>
   <main class="relative min-h-screen" data-template="landing-page">
     <Nav />
     <div class="relative z-10">

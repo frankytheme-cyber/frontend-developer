@@ -9,4 +9,6 @@ Progetto e sviluppo **interfacce moderne, dashboard fintech e tool web ad alte p
 
 Dal prototipo alla produzione: componenti riutilizzabili, performance come requisito di design (non un refactor finale) e integrazione con API esterne, inclusi i modelli AI.
 
-*Contenuto di base in attesa del copy definitivo da SEO & GEO.*
+Alcuni esempi dal [portfolio progetti](/progetti/dashboard-fintech): dashboard di analisi DeFi, simulatori di order book e strumenti di portafoglio costruiti con React, TypeScript e librerie Web3. Lo stesso approccio si applica a dashboard gestionali, portali clienti e tool interni per aziende di qualsiasi settore.
+
+Lavoro soprattutto da remoto per clienti a Verona e in tutta Italia, con un prototipo funzionante entro 1-2 settimane dal via libera.

@@ -14,6 +14,32 @@ const title = "Simone Puliti — Web Design, Tool AI & Siti Web · Verona";
 const description =
   "Web designer e developer freelance a Verona: web design, tool AI, siti WordPress e app React/Next.js. 14 anni di esperienza. Preventivo gratuito.";
 
+const keywords = [
+  "web design Verona",
+  "web designer Verona",
+  "webdesign Verona",
+  "web design Veneto",
+  "design siti web Verona",
+  "progettazione siti web Verona",
+  "UI design Verona",
+  "UX design Verona",
+  "sviluppo tool AI",
+  "sviluppatore AI Verona",
+  "integrazione intelligenza artificiale",
+  "assistente AI personalizzato",
+  "automazione AI aziendale",
+  "Next.js freelance Italia",
+  "frontend developer Verona",
+  "sviluppatore web Verona",
+  "WordPress Verona",
+  "freelance frontend Veneto",
+  "sviluppatore WordPress Verona",
+  "JavaScript developer Verona",
+  "sviluppatore freelance Verona",
+  "web developer Veneto",
+  "e-commerce WooCommerce Verona",
+];
+
 const jsonLd = [
   {
     "@context": "https://schema.org",
@@ -51,12 +77,16 @@ const jsonLd = [
   },
   {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
+    "@type": ["ProfessionalService", "LocalBusiness"],
     name: "Simone Puliti — Web Design, Tool AI & Web Development",
     url: siteUrl,
+    image: `${siteUrl}/og-image.png`,
     description:
       "Web design, sviluppo tool AI personalizzati, siti WordPress, e-commerce WooCommerce e app React/Next.js. Freelance a Verona, disponibile da remoto in tutta Italia.",
     provider: { "@type": "Person", name: "Simone Puliti" },
+    email: "simowebdesigner@gmail.com",
+    address: { "@type": "PostalAddress", addressLocality: "Verona", addressRegion: "Veneto", addressCountry: "IT" },
+    geo: { "@type": "GeoCoordinates", latitude: 45.4384, longitude: 10.9916 },
     areaServed: ["Verona", "Veneto", "Italia"],
     serviceType: [
       "Web Design", "UI/UX Design", "Progettazione siti web", "Sviluppo Tool AI",
@@ -73,7 +103,7 @@ const jsonLd = [
 ];
 ---
 
-<BaseLayout title={title} description={description} canonicalPath="/" jsonLd={jsonLd}>
+<BaseLayout title={title} description={description} canonicalPath="/" keywords={keywords} jsonLd={jsonLd}>
   <main class="relative min-h-screen" data-template="home">
     <AuroraBackground />
     <ParticlesBackground />

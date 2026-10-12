@@ -7,6 +7,7 @@ import vercel from "@astrojs/vercel";
 export default defineConfig({
   site: "https://simonepuliti.dev",
   output: "static",
+  trailingSlash: "never",
   adapter: vercel(),
   integrations: [mdx(), sitemap()],
   image: {
