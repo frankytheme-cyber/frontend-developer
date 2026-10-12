@@ -1,0 +1,29 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+type Props = { post: CollectionEntry<"guide"> };
+const { post } = Astro.props;
+const { title, description, date, tags } = post.data;
+
+const formatted = new Date(date).toLocaleDateString("it-IT", { day: "numeric", month: "long", year: "numeric" });
+---
+
+<a
+  href={`/guide/${post.id}`}
+  class="hover-border-accent group flex flex-col gap-4 p-6 transition-colors duration-200"
+  style="background:var(--surface);border:1px solid var(--border);border-radius:12px;text-decoration:none"
+>
+  <div class="flex flex-wrap gap-1.5">
+    {tags.map((tag) => (
+      <span class="text-xs px-2 py-0.5 rounded" style="background:var(--badge-bg);color:var(--badge-text);border:1px solid var(--badge-border);font-family:var(--font-mono)">
+        {tag}
+      </span>
+    ))}
+  </div>
+  <h2 class="text-xl font-bold leading-snug" style="color:var(--text)">{title}</h2>
+  <p class="text-sm leading-relaxed flex-1" style="color:var(--muted)">{description}</p>
+  <div class="flex items-center justify-between pt-2" style="border-top:1px solid var(--border)">
+    <time class="text-xs" datetime={date} style="color:var(--muted-2);font-family:var(--font-mono)">{formatted}</time>
+    <span class="text-xs font-semibold" style="color:var(--muted-2);font-family:var(--font-mono)">Leggi →</span>
+  </div>
+</a>

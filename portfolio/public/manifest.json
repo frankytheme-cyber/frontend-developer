@@ -4,8 +4,8 @@
   "description": "Web designer e developer freelance a Verona: web design, tool AI, siti WordPress e app React/Next.js.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f4f1eb",
-  "theme_color": "#3d2fa9",
+  "background_color": "#161e24",
+  "theme_color": "#161e24",
   "lang": "it",
   "icons": [
     { "src": "/favicon.ico", "sizes": "any", "type": "image/x-icon" }

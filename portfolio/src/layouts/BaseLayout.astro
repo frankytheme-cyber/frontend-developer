@@ -1,0 +1,91 @@
+---
+import "@/styles/global.css";
+
+export type JsonLdEntry = Record<string, unknown>;
+
+type Props = {
+  title: string;
+  description: string;
+  canonicalPath?: string;
+  ogImage?: string;
+  jsonLd?: JsonLdEntry[];
+  noindex?: boolean;
+};
+
+const {
+  title,
+  description,
+  canonicalPath = Astro.url.pathname,
+  ogImage = "/og-image.png",
+  jsonLd = [],
+  noindex = false,
+} = Astro.props;
+
+const siteUrl = "https://simonepuliti.dev";
+const canonical = new URL(canonicalPath, siteUrl).toString();
+const ogImageUrl = ogImage.startsWith("http") ? ogImage : new URL(ogImage, siteUrl).toString();
+---
+
+<!doctype html>
+<html lang="it" class="sage-dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#161e24" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hrefLang="it" href={canonical} />
+    <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large"} />
+
+    <meta name="author" content="Simone Puliti" />
+    <meta name="geo.region" content="IT-VR" />
+    <meta name="geo.placename" content="Verona" />
+    <meta name="geo.position" content="45.4384;10.9916" />
+    <meta name="ICBM" content="45.4384, 10.9916" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="it_IT" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Simone Puliti — Web Design & Web Developer" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:creator" content="@simonepuliti" />
+
+    {jsonLd.length > 0 && (
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    )}
+
+    <script is:inline>
+      document.documentElement.classList.add("js");
+    </script>
+  </head>
+  <body class="antialiased">
+    <slot />
+    <script>
+      import { inject } from "@vercel/analytics";
+      // Lo script di Vercel Analytics esiste solo quando l'app gira davvero su Vercel
+      // (produzione o anteprima). In locale (npm run dev / preview / server statico)
+      // l'endpoint non esiste: caricarlo comunque genera un errore in console.
+      if (!["localhost", "127.0.0.1"].includes(location.hostname)) {
+        inject({ mode: import.meta.env.PROD ? "production" : "development" });
+      }
+    </script>
+    <script>
+      import "@/scripts/reveal";
+    </script>
+  </body>
+</html>

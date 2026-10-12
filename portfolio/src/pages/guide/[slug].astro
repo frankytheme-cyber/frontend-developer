@@ -1,0 +1,84 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Nav from "@/components/Nav.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("guide", ({ data }) => data.published);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const siteUrl = "https://simonepuliti.dev";
+const articleUrl = `${siteUrl}/guide/${post.id}`;
+const { title, description, date, updated, tags, image } = post.data;
+const ogImage = image ? (image.startsWith("http") ? image : `${siteUrl}${image}`) : `${siteUrl}/og-image.png`;
+
+const formatted = new Date(date).toLocaleDateString("it-IT", { day: "numeric", month: "long", year: "numeric" });
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: title,
+    description,
+    datePublished: date,
+    dateModified: updated ?? date,
+    author: { "@type": "Person", name: "Simone Puliti", url: siteUrl },
+    publisher: { "@type": "Person", name: "Simone Puliti", url: siteUrl },
+    url: articleUrl,
+    mainEntityOfPage: { "@type": "WebPage", "@id": articleUrl },
+    image: [ogImage],
+    keywords: tags.join(", "),
+    inLanguage: "it-IT",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+      { "@type": "ListItem", position: 2, name: "Guide", item: `${siteUrl}/guide` },
+      { "@type": "ListItem", position: 3, name: title, item: articleUrl },
+    ],
+  },
+];
+---
+
+<BaseLayout title={title} description={description} canonicalPath={`/guide/${post.id}`} ogImage={ogImage} jsonLd={jsonLd}>
+  <main class="relative min-h-screen" data-template="guide-article">
+    <Nav />
+    <div class="max-w-2xl mx-auto px-6 py-24 relative z-10">
+      <a href="/guide" class="back-link">← Guide</a>
+
+      <div class="flex flex-wrap gap-2 mb-6">
+        {tags.map((tag) => (
+          <span class="text-xs px-2 py-0.5 rounded" style="background:var(--badge-bg);color:var(--badge-text);border:1px solid var(--badge-border);font-family:var(--font-mono)">
+            {tag}
+          </span>
+        ))}
+      </div>
+
+      <h1 class="text-[clamp(2rem,5vw,3rem)] font-black tracking-[-0.02em] leading-tight mb-4" style="color:var(--text)">
+        {title}
+      </h1>
+      <time datetime={date} class="block text-sm mb-12" style="color:var(--muted-2);font-family:var(--font-mono)">
+        {formatted}
+      </time>
+
+      <div class="w-full h-px mb-12" style="background:var(--border)" />
+
+      <div class="prose-blog">
+        <Content />
+      </div>
+
+      <div class="w-full h-px mt-16 mb-12" style="background:var(--border)" />
+
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <a href="/guide" class="back-link">← Tutte le guide</a>
+        <a href="/contatti" class="article-cta">Parliamo del tuo progetto →</a>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

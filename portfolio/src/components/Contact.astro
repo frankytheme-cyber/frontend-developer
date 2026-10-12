@@ -1,0 +1,81 @@
+---
+import ContactForm from "./ContactForm.astro";
+import mailIcon from "lucide-static/icons/mail.svg?raw";
+import mapPinIcon from "lucide-static/icons/map-pin.svg?raw";
+
+const linkedinSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>`;
+
+const EMAIL = "simowebdesigner@gmail.com";
+---
+
+<section id="contatti" class="py-10 md:py-20 px-6 max-w-6xl mx-auto" data-template-part="contact">
+  <div class="w-full h-px mb-16" style="background:var(--border)" />
+
+  <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,30rem)] gap-14 lg:gap-16 items-start pb-10 pt-10 md:pt-20">
+    <div class="max-w-lg">
+      <p data-reveal class="text-xs font-semibold tracking-[0.25em] uppercase mb-6" style="color:var(--accent);font-family:var(--font-mono)">
+        Contatti
+      </p>
+      <h2 data-reveal class="text-[clamp(1.65rem,4vw,2.75rem)] font-black tracking-[-0.02em] leading-none mb-6" style="--d:0.05s;color:var(--text)">
+        Lavoriamo<br />
+        insieme<span style="color:var(--accent)">.</span>
+      </h2>
+      <p data-reveal class="text-lg leading-relaxed mb-6" style="--d:0.1s;color:var(--muted)">
+        Sviluppo <strong style="color:var(--text)">tool AI personalizzati</strong>, <strong style="color:var(--text)">siti WordPress</strong> e <strong style="color:var(--text)">app React/Next.js</strong> pensate per convertire e crescere nel tempo.
+        Dalle <strong style="color:var(--text)">automazioni AI</strong> agli e-commerce: soluzioni su misura per la tua azienda.
+        <br />Freelance da <strong style="color:var(--text)">Verona</strong>, disponibile da remoto in tutta Italia.
+      </p>
+
+      <div data-reveal class="inline-flex items-center gap-2" style="--d:0.18s">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style="background:var(--accent)" />
+          <span class="relative inline-flex rounded-full h-2 w-2" style="background:var(--accent)" />
+        </span>
+        <span class="text-base font-medium" style="color:var(--accent);font-family:var(--font-mono)">
+          Disponibile · Verona / Remote
+        </span>
+      </div>
+
+      <div class="flex flex-col gap-6 mt-10 pt-10" style="border-top:1px solid var(--border)">
+        <div class="flex items-center gap-3">
+          <a
+            href={`mailto:${EMAIL}`}
+            aria-label="Scrivimi un'email"
+            title="Scrivimi un'email"
+            data-reveal
+            class="hover-border-accent flex items-center justify-center w-11 h-11 rounded-lg"
+            style="--d:0.22s;background:var(--surface);border:1px solid var(--border)"
+          >
+            <span class="w-[18px] h-[18px]" style="color:var(--accent)" set:html={mailIcon} />
+          </a>
+          <a
+            href="https://linkedin.com/in/simone-puliti-23071898"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Profilo LinkedIn"
+            title="Profilo LinkedIn"
+            data-reveal
+            class="hover-border-accent flex items-center justify-center w-11 h-11 rounded-lg"
+            style="--d:0.29s;background:var(--surface);border:1px solid var(--border)"
+          >
+            <span class="w-[18px] h-[18px]" style="color:var(--accent)" set:html={linkedinSvg} />
+          </a>
+        </div>
+
+        <div data-reveal class="flex items-center gap-2" style="--d:0.4s;color:var(--muted-2)">
+          <span class="w-3.5 h-3.5 shrink-0" set:html={mapPinIcon} />
+          <span class="text-base" style="font-family:var(--font-mono)">Verona, Italia</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-full lg:sticky lg:top-24">
+      <ContactForm />
+    </div>
+  </div>
+
+  <div data-reveal class="flex items-center justify-between mt-24 pt-8" style="--d:0.5s;border-top:1px solid var(--border)">
+    <p class="text-xs" style="color:var(--muted-2);font-family:var(--font-mono)">© {new Date().getFullYear()} Simone Puliti</p>
+    <p class="text-xs" style="color:var(--muted-2);font-family:var(--font-mono)">Astro · Tailwind · Decap CMS</p>
+  </div>
+</section>

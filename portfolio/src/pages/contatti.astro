@@ -1,0 +1,54 @@
+---
+export const prerender = false;
+
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Nav from "@/components/Nav.astro";
+import Contact from "@/components/Contact.astro";
+
+const siteUrl = "https://simonepuliti.dev";
+const pagePath = "/contatti";
+const title = "Contatti — Simone Puliti, Web Designer & Sviluppatore a Verona";
+const description =
+  "Contattami per un preventivo gratuito: web design, siti WordPress, app React/Next.js e tool AI personalizzati. Verona e in tutta Italia da remoto.";
+
+const sent = Astro.url.searchParams.get("sent") === "1";
+const error = Astro.url.searchParams.get("error");
+
+const ERROR_MESSAGES: Record<string, string> = {
+  "rate-limit": "Hai già inviato diversi messaggi. Riprova tra qualche minuto.",
+  validation: "Controlla i campi del modulo: alcuni dati non sono validi.",
+  captcha: "Verifica anti-spam non superata. Riprova.",
+  "send-failed": "Invio non riuscito. Scrivimi pure a simowebdesigner@gmail.com.",
+};
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+      { "@type": "ListItem", position: 2, name: "Contatti", item: `${siteUrl}${pagePath}` },
+    ],
+  },
+];
+---
+
+<BaseLayout title={title} description={description} canonicalPath={pagePath} jsonLd={jsonLd}>
+  <main class="relative min-h-screen" data-template="contact-page">
+    <Nav />
+    <div class="relative z-10">
+      <div class="pt-14" />
+      {sent && (
+        <p class="max-w-6xl mx-auto px-6 mt-10 text-sm" role="status" style="color:var(--accent)">
+          Grazie, messaggio ricevuto. Ti rispondo entro un giorno lavorativo.
+        </p>
+      )}
+      {error && ERROR_MESSAGES[error] && (
+        <p class="max-w-6xl mx-auto px-6 mt-10 text-sm" role="alert" style="color:#d9534f">
+          {ERROR_MESSAGES[error]}
+        </p>
+      )}
+      <Contact />
+    </div>
+  </main>
+</BaseLayout>

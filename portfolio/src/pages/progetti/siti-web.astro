@@ -1,0 +1,35 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Nav from "@/components/Nav.astro";
+import ProjectsWeb from "@/components/ProjectsWeb.astro";
+import Contact from "@/components/Contact.astro";
+
+const siteUrl = "https://simonepuliti.dev";
+const pagePath = "/progetti/siti-web";
+const title = "Progetti Siti Web — WordPress, React e Next.js | Simone Puliti";
+const description =
+  "Portfolio progetti siti web realizzati per aziende: WordPress, e-commerce WooCommerce e app React/Next.js. Case study reali.";
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+      { "@type": "ListItem", position: 2, name: "Progetti", item: `${siteUrl}/#progetti` },
+      { "@type": "ListItem", position: 3, name: "Siti web", item: `${siteUrl}${pagePath}` },
+    ],
+  },
+];
+---
+
+<BaseLayout title={title} description={description} canonicalPath={pagePath} jsonLd={jsonLd}>
+  <main class="relative min-h-screen" data-template="projects-page">
+    <Nav />
+    <div class="relative z-10">
+      <div class="pt-14" />
+      <ProjectsWeb />
+      <Contact />
+    </div>
+  </main>
+</BaseLayout>
