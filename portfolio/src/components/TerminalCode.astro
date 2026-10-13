@@ -1,0 +1,65 @@
+---
+type Props = { className?: string; title?: string };
+const { className = "", title = "terminal" } = Astro.props;
+
+const CODE = `$ claude
+
+> Build portfolio with Next.js,
+  Tailwind and Framer Motion
+
+✓ Layout scaffolded
+✓ Components generated
+✓ Animations tuned
+✓ Deployed to Vercel
+
+Done in 4.2s`;
+---
+
+<div
+  data-reveal
+  class={`rounded-xl overflow-hidden border max-w-xl ${className}`}
+  style="--d:0.6s;background:var(--surface);border-color:var(--card-border);box-shadow:0 4px 24px rgba(0,0,0,0.08)"
+>
+  <div class="flex items-center gap-2 px-3 py-2 border-b" style="border-color:var(--border);background:var(--surface)">
+    <span class="flex gap-1.5">
+      <span class="w-2.5 h-2.5 rounded-full" style="background:#e74c3c" />
+      <span class="w-2.5 h-2.5 rounded-full" style="background:#f1c40f" />
+      <span class="w-2.5 h-2.5 rounded-full" style="background:#2ecc71" />
+    </span>
+    <span class="text-xs font-medium ml-2" style="color:var(--muted-2);font-family:var(--font-mono)">{title}</span>
+  </div>
+  <div class="p-4 h-[180px] overflow-auto terminal-code-body" style="font-family:var(--font-mono);font-size:13px;line-height:1.65">
+    <pre class="m-0 whitespace-pre" style="color:var(--muted)" data-code={CODE}>{CODE}</pre>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLPreElement>(".terminal-code-body pre[data-code]").forEach((pre) => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const code = pre.dataset.code ?? "";
+    let i = 0;
+    pre.textContent = "";
+    const cursor = document.createElement("span");
+    cursor.style.cssText = "display:inline-block;width:8px;height:16px;vertical-align:middle;margin-left:2px;background:var(--accent)";
+    pre.appendChild(cursor);
+
+    const blink = setInterval(() => {
+      cursor.style.opacity = cursor.style.opacity === "0.3" ? "1" : "0.3";
+    }, 530);
+
+    function type() {
+      if (i <= code.length) {
+        pre.textContent = code.slice(0, i);
+        pre.appendChild(cursor);
+        i++;
+        setTimeout(type, 40);
+      } else {
+        setTimeout(() => {
+          i = 0;
+          type();
+        }, 2000);
+      }
+    }
+    setTimeout(type, 600);
+  });
+</script>

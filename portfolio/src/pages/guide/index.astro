@@ -1,0 +1,83 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Nav from "@/components/Nav.astro";
+import GuideCard from "@/components/GuideCard.astro";
+
+const siteUrl = "https://simonepuliti.dev";
+const guideUrl = `${siteUrl}/guide`;
+
+const title = "Guide — AI, Web Development e Next.js";
+const description =
+  "Articoli pratici su sviluppo AI, integrazione Claude API, Next.js e web development professionale. Guide tecniche per developer e aziende.";
+
+const keywords = [
+  "blog sviluppo AI",
+  "Claude API tutorial",
+  "Next.js tutorial italiano",
+  "web development blog",
+  "guida AI per aziende",
+];
+
+const posts = (await getCollection("guide", ({ data }) => data.published)).sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
+);
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: "Guide — Simone Puliti",
+    description,
+    url: guideUrl,
+    inLanguage: "it-IT",
+    author: { "@type": "Person", name: "Simone Puliti", url: siteUrl },
+    publisher: { "@type": "Person", name: "Simone Puliti", url: siteUrl },
+    blogPost: posts.map((post) => ({
+      "@type": "BlogPosting",
+      headline: post.data.title,
+      description: post.data.description,
+      url: `${guideUrl}/${post.id}`,
+      datePublished: post.data.date,
+      dateModified: post.data.updated ?? post.data.date,
+      author: { "@type": "Person", name: "Simone Puliti", url: siteUrl },
+      keywords: post.data.tags.join(", "),
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+      { "@type": "ListItem", position: 2, name: "Guide", item: guideUrl },
+    ],
+  },
+];
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/guide" keywords={keywords} jsonLd={jsonLd}>
+  <main class="relative min-h-screen" data-template="guide-list">
+    <Nav />
+    <div class="max-w-4xl mx-auto px-6 py-24 relative z-10">
+      <p class="text-xs font-semibold tracking-[0.25em] uppercase mb-6" style="color:var(--accent);font-family:var(--font-mono)">
+        Articoli
+      </p>
+      <h1 class="text-[clamp(2.5rem,6vw,4.5rem)] font-black tracking-[-0.03em] leading-none mb-6" style="color:var(--text)">
+        Guide<span style="color:var(--accent)">.</span>
+      </h1>
+      <p class="text-lg max-w-xl mb-16 leading-relaxed" style="color:var(--muted)">
+        Guide pratiche su AI, Claude API, Next.js e web development professionale.
+      </p>
+
+      <div class="w-full h-px mb-16" style="background:var(--border)" />
+
+      {posts.length === 0 ? (
+        <p style="color:var(--muted)">Nessun articolo pubblicato.</p>
+      ) : (
+        <div class="grid sm:grid-cols-2 gap-6">
+          {posts.map((post) => <GuideCard post={post} />)}
+        </div>
+      )}
+    </div>
+  </main>
+</BaseLayout>

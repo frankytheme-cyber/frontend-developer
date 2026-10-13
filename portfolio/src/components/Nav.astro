@@ -1,0 +1,105 @@
+---
+import menuIcon from "lucide-static/icons/menu.svg?raw";
+import xIcon from "lucide-static/icons/x.svg?raw";
+import chevronIcon from "lucide-static/icons/chevron-down.svg?raw";
+
+const NAV = [
+  {
+    label: "Servizi",
+    items: [
+      { label: "Siti WordPress & E-commerce", href: "/servizi/siti-wordpress-ecommerce" },
+      { label: "Assistenza WordPress", href: "/assistenza-wordpress-verona" },
+      { label: "Tool AI", href: "/tool-ai-verona" },
+      { label: "App React / Next.js", href: "/servizi/app-react-nextjs" },
+    ],
+  },
+  {
+    label: "Progetti",
+    items: [
+      { label: "Siti web", href: "/progetti/siti-web" },
+      { label: "Dashboard & Fintech", href: "/progetti/dashboard-fintech" },
+    ],
+  },
+] as const;
+
+const SIMPLE_LINKS = [
+  { label: "Chi sono", href: "/chi-sono" },
+  { label: "Guide", href: "/guide" },
+] as const;
+---
+
+<header class="site-header" id="site-header" data-annotate="nav">
+  <nav class="mx-auto flex items-center justify-between px-6 h-14" style="max-width:1200px" aria-label="Principale">
+    <a href="/" class="text-sm font-bold tracking-tight" style="color:var(--text);letter-spacing:-0.01em">
+      Simone Puliti<span style="color:var(--accent-2)">.</span>
+    </a>
+
+    <ul class="hidden md:flex items-center" style="gap:28px">
+      {NAV.map((group) => (
+        <li>
+          <details class="nav-dropdown">
+            <summary class="nav-link">
+              {group.label}
+              <span class="chev w-3 h-3" set:html={chevronIcon} />
+            </summary>
+            <ul class="nav-dropdown-panel">
+              {group.items.map((item) => (
+                <li><a href={item.href}>{item.label}</a></li>
+              ))}
+            </ul>
+          </details>
+        </li>
+      ))}
+      {SIMPLE_LINKS.map((link) => (
+        <li><a href={link.href} class="nav-link">{link.label}</a></li>
+      ))}
+      <li><a href="/contatti" class="nav-cta">Contatti</a></li>
+    </ul>
+
+    <details class="md:hidden mobile-menu-toggle" id="mobile-menu">
+      <summary aria-label="Apri menu">
+        <span class="icon-menu w-4 h-4" set:html={menuIcon} />
+        <span class="icon-close w-4 h-4" set:html={xIcon} />
+      </summary>
+      <div class="mobile-menu-panel">
+        <ul class="flex flex-col px-6 py-3">
+          {NAV.map((group) => (
+            <li>
+              <details class="nav-dropdown">
+                <summary class="nav-link block py-3">
+                  {group.label}
+                  <span class="chev w-3 h-3" set:html={chevronIcon} />
+                </summary>
+                <ul class="nav-dropdown-panel">
+                  {group.items.map((item) => (
+                    <li><a href={item.href}>{item.label}</a></li>
+                  ))}
+                </ul>
+              </details>
+            </li>
+          ))}
+          {SIMPLE_LINKS.map((link) => (
+            <li><a href={link.href} class="nav-link block py-3">{link.label}</a></li>
+          ))}
+          <li class="py-3"><a href="/contatti" class="nav-cta">Contatti</a></li>
+        </ul>
+      </div>
+    </details>
+  </nav>
+</header>
+<div id="top"></div>
+
+<script>
+  const header = document.getElementById("site-header");
+  const onScroll = () => header?.classList.toggle("is-scrolled", window.scrollY > 8);
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  // Chiude il menu mobile dopo il click su un link (comodità, non necessario senza JS).
+  const toggle = document.getElementById("mobile-menu") as HTMLDetailsElement | null;
+  toggle?.querySelectorAll("a").forEach((a) =>
+    a.addEventListener("click", () => {
+      toggle.open = false;
+    }),
+  );
+</script>

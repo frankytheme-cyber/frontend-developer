@@ -1,0 +1,76 @@
+backend:
+  name: github
+  repo: frankytheme-cyber/frontend-developer
+  branch: dev
+  base_url: https://simonepuliti.dev
+  auth_endpoint: api/auth
+
+# Interfaccia in italiano.
+locale: it
+
+media_folder: "portfolio/public/images"
+public_folder: "/images"
+
+collections:
+  - name: guide
+    label: "Guide"
+    folder: "portfolio/src/content/guide"
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - { label: "Titolo", name: title, widget: string }
+      - { label: "Descrizione (SEO)", name: description, widget: text }
+      - { label: "Data", name: date, widget: datetime, format: "YYYY-MM-DD" }
+      - { label: "Aggiornato il", name: updated, widget: datetime, format: "YYYY-MM-DD", required: false }
+      - { label: "Tag", name: tags, widget: list, default: [] }
+      - { label: "Pubblicato", name: published, widget: boolean, default: false }
+      - { label: "Immagine di copertina", name: image, widget: image, required: false }
+      - { label: "Contenuto", name: body, widget: markdown }
+
+  - name: projects-web
+    label: "Progetti — Siti web"
+    folder: "portfolio/src/content/projects-web"
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - { label: "Nome progetto", name: name, widget: string }
+      - { label: "Ordine", name: order, widget: number, value_type: int, default: 0 }
+      - { label: "Descrizione", name: description, widget: text }
+      - { label: "Tecnologie", name: tech, widget: list, default: [] }
+      - { label: "URL live", name: liveUrl, widget: string, required: false }
+      - { label: "URL repository", name: repoUrl, widget: string, required: false }
+      - { label: "Immagine", name: image, widget: image, required: false }
+
+  - name: projects-crypto
+    label: "Progetti — Dashboard & Fintech"
+    folder: "portfolio/src/content/projects-crypto"
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - { label: "Nome progetto", name: name, widget: string }
+      - { label: "Ordine", name: order, widget: number, value_type: int, default: 0 }
+      - { label: "Descrizione", name: description, widget: text }
+      - { label: "Tecnologie", name: tech, widget: list, default: [] }
+      - { label: "URL live", name: liveUrl, widget: string, required: false }
+      - { label: "URL repository", name: repoUrl, widget: string, required: false }
+      - { label: "Immagine", name: image, widget: image, required: false }
+
+  - name: service
+    label: "Servizi"
+    folder: "portfolio/src/content/service"
+    create: false
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - { label: "Titolo", name: title, widget: string }
+      - { label: "Eyebrow", name: eyebrow, widget: string, default: "Servizi" }
+      - { label: "Descrizione (SEO)", name: metaDescription, widget: text }
+      - { label: "Colore pallino", name: heroDot, widget: color, default: "#b3a8ff" }
+      - { label: "Contenuto", name: body, widget: markdown }

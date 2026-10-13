@@ -1,0 +1,54 @@
+---
+import { getCollection } from "astro:content";
+import ProjectCard from "./ProjectCard.astro";
+import OrderBook from "./OrderBook.astro";
+
+const PROTOCOLS = ["Uniswap V3", "wagmi", "Viem", "The Graph", "LayerZero"];
+
+type Props = { headingLevel?: "h1" | "h2" };
+const { headingLevel = "h2" } = Astro.props;
+const Heading = headingLevel;
+
+const projects = (await getCollection("projects-crypto")).sort((a, b) => a.data.order - b.data.order);
+---
+
+<section id="progetti-crypto" class="py-10 md:py-20 px-6 max-w-6xl mx-auto" data-template-part="projects-crypto">
+  <div class="w-full h-px mb-16" style="background:var(--border)" />
+
+  <div class="flex flex-col lg:flex-row lg:items-start gap-8 lg:gap-12 mb-8 pb-10 pt-10 md:pt-20">
+    <div class="min-w-0 flex-1">
+      <p data-reveal class="text-xs font-semibold tracking-[0.25em] uppercase mb-6" style="color:var(--accent);font-family:var(--font-mono)">
+        Crypto & Fintech
+      </p>
+      <Heading data-reveal class="text-[clamp(1.65rem,4vw,2.75rem)] font-black tracking-[-0.02em] leading-none mb-4" style="--d:0.05s;color:var(--text)">
+        Dashboard & Tool
+      </Heading>
+      <p data-reveal class="text-lg max-w-md" style="--d:0.15s;color:var(--muted)">
+        Interfacce per la finanza digitale: analisi DeFi, simulatori e tool di portafoglio.
+      </p>
+    </div>
+    <OrderBook />
+  </div>
+
+  <div data-reveal class="flex flex-wrap gap-2 mb-12" style="--d:0.2s">
+    {PROTOCOLS.map((p) => (
+      <span class="text-sm font-medium px-3 py-1 rounded-full" style="background:var(--accent-dim);border:1px solid var(--badge-border);color:var(--accent);font-family:var(--font-mono)">
+        {p}
+      </span>
+    ))}
+  </div>
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    {projects.map((project, i) => (
+      <ProjectCard
+        name={project.data.name}
+        description={project.data.description}
+        tech={project.data.tech}
+        liveUrl={project.data.liveUrl}
+        repoUrl={project.data.repoUrl}
+        image={project.data.image}
+        index={i}
+      />
+    ))}
+  </div>
+</section>
