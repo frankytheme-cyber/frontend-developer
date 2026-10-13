@@ -6,4 +6,7 @@ Allow: /
 Host: https://simonepuliti.dev
 
 # Sitemaps
-Sitemap: https://simonepuliti.dev/sitemap.xml
+Sitemap: https://simonepuliti.dev/sitemap-index.xml
+
+# Pannello contenuti — non da indicizzare
+Disallow: /admin

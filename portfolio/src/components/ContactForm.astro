@@ -1,0 +1,241 @@
+---
+import { TOPICS } from "@/lib/contact";
+import sendIcon from "lucide-static/icons/send.svg?raw";
+import checkIcon from "lucide-static/icons/circle-check-big.svg?raw";
+import alertIcon from "lucide-static/icons/circle-alert.svg?raw";
+
+const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+---
+
+<form
+  id="contact-form"
+  method="POST"
+  action="/api/contact"
+  novalidate
+  class="contact-card"
+  aria-labelledby="contact-form-title"
+  data-reveal
+  style="--d:0.1s"
+>
+  <p id="contact-form-title" class="text-xs font-semibold tracking-[0.25em] uppercase mb-5" style="color:var(--muted-2);font-family:var(--font-mono)">
+    Raccontami il progetto
+  </p>
+
+  <div class="grid sm:grid-cols-2 gap-4">
+    <div>
+      <label class="contact-label" for="name">Nome</label>
+      <input id="name" name="name" placeholder="Nome o azienda" type="text" autocomplete="name" class="contact-field" required minlength="2" maxlength="80" />
+      <p id="name-error" class="contact-error" hidden></p>
+    </div>
+    <div>
+      <label class="contact-label" for="email">Email</label>
+      <input id="email" name="email" type="email" placeholder="La tua email" autocomplete="email" class="contact-field" required maxlength="160" />
+      <p id="email-error" class="contact-error" hidden></p>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <label class="contact-label" for="topic">Di cosa hai bisogno</label>
+    <select id="topic" name="topic" class="contact-field contact-select">
+      {TOPICS.map(({ value, label }) => <option value={value}>{label}</option>)}
+    </select>
+  </div>
+
+  <div class="mt-4">
+    <label class="contact-label" for="message">Messaggio</label>
+    <textarea id="message" name="message" rows="5" class="contact-field" placeholder="Obiettivo, tempi e budget indicativo: bastano due righe." required minlength="10" maxlength="4000"></textarea>
+    <p id="message-error" class="contact-error" hidden></p>
+  </div>
+
+  <!-- honeypot — invisibile agli utenti, irresistibile ai bot -->
+  <div aria-hidden="true" class="contact-honeypot">
+    <label for="website">Non compilare questo campo</label>
+    <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+  </div>
+  <input type="hidden" id="form-loaded-at" name="loadedAt" value="" />
+
+  <div class="mt-5">
+    <label class="contact-consent" for="consent">
+      <input id="consent" name="consent" type="checkbox" value="true" required />
+      <span>
+        Acconsento al trattamento dei miei dati per ricevere una risposta a questa richiesta.
+        Non vengono usati per altro né condivisi con terzi.
+      </span>
+    </label>
+    <p id="consent-error" class="contact-error" hidden></p>
+  </div>
+
+  {TURNSTILE_SITE_KEY && <div class="contact-turnstile" id="turnstile-container" data-sitekey={TURNSTILE_SITE_KEY}></div>}
+  <p id="captcha-error" class="contact-error" hidden></p>
+
+  <button type="submit" class="contact-submit mt-5" id="contact-submit">
+    <span id="submit-label" class="inline-flex items-center gap-2">
+      Invia messaggio
+      <span class="w-4 h-4" set:html={sendIcon} />
+    </span>
+  </button>
+
+  <p aria-live="polite" class="sr-only" id="contact-status-live"></p>
+  <p class="contact-error mt-3 flex items-start gap-2" role="alert" id="contact-feedback" hidden>
+    <span class="w-4 h-4 shrink-0 mt-0.5" set:html={alertIcon} />
+    <span id="contact-feedback-text"></span>
+  </p>
+</form>
+
+<div class="contact-card hidden flex-col items-start gap-4" id="contact-success" role="status">
+  <span class="flex items-center justify-center w-11 h-11 rounded-lg" style="background:var(--accent-dim);border:1px solid var(--border)">
+    <span class="w-5 h-5" style="color:var(--accent)" set:html={checkIcon} />
+  </span>
+  <div>
+    <p class="text-lg font-semibold mb-2" style="color:var(--text)">Grazie, messaggio ricevuto.</p>
+    <p class="text-base leading-relaxed" style="color:var(--muted)">
+      Lo leggo io, non un sistema automatico: ti rispondo entro un giorno lavorativo, spesso nel giro di poche ore.
+    </p>
+  </div>
+  <button type="button" class="contact-ghost" id="contact-reset">Invia un altro messaggio</button>
+</div>
+
+<script define:vars={{ hasTurnstile: Boolean(TURNSTILE_SITE_KEY) }}>
+  window.__CONTACT_HAS_TURNSTILE__ = hasTurnstile;
+</script>
+
+<script>
+  import { validateContact, type ContactFields } from "@/lib/contact";
+
+  const form = document.getElementById("contact-form") as HTMLFormElement | null;
+  const successCard = document.getElementById("contact-success");
+  const submitBtn = document.getElementById("contact-submit") as HTMLButtonElement | null;
+  const submitLabel = document.getElementById("submit-label");
+  const feedback = document.getElementById("contact-feedback");
+  const feedbackText = document.getElementById("contact-feedback-text");
+  const statusLive = document.getElementById("contact-status-live");
+  const loadedAtField = document.getElementById("form-loaded-at") as HTMLInputElement | null;
+  const resetBtn = document.getElementById("contact-reset");
+
+  if (loadedAtField) loadedAtField.value = String(Date.now());
+
+  const errorEl = (field: string) => document.getElementById(`${field}-error`);
+  const inputEl = (field: string) => document.getElementById(field) as HTMLInputElement | HTMLTextAreaElement | null;
+
+  function clearErrors() {
+    ["name", "email", "message", "consent"].forEach((f) => {
+      const el = errorEl(f);
+      if (el) { el.hidden = true; el.textContent = ""; }
+      inputEl(f)?.removeAttribute("aria-invalid");
+    });
+    if (feedback) feedback.hidden = true;
+  }
+
+  function showErrors(errors: Partial<Record<keyof ContactFields, string>>) {
+    (Object.keys(errors) as (keyof ContactFields)[]).forEach((field) => {
+      const msg = errors[field];
+      if (!msg) return;
+      const el = errorEl(field as string);
+      if (el) { el.hidden = false; el.textContent = msg; }
+      inputEl(field as string)?.setAttribute("aria-invalid", "true");
+    });
+  }
+
+  // Turnstile — caricato solo se la site key è configurata.
+  let captchaToken = "";
+  const turnstileContainer = document.getElementById("turnstile-container");
+  if (turnstileContainer && window.__CONTACT_HAS_TURNSTILE__) {
+    const siteKey = turnstileContainer.dataset.sitekey;
+    const script = document.createElement("script");
+    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+    script.addEventListener("load", () => {
+      window.turnstile?.render(turnstileContainer, {
+        sitekey: siteKey,
+        theme: "dark",
+        size: "flexible",
+        callback: (token: string) => (captchaToken = token),
+        "expired-callback": () => (captchaToken = ""),
+        "error-callback": () => (captchaToken = ""),
+      });
+    });
+  }
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (submitBtn?.disabled) return;
+
+    const values: ContactFields = {
+      name: (inputEl("name") as HTMLInputElement)?.value ?? "",
+      email: (inputEl("email") as HTMLInputElement)?.value ?? "",
+      topic: (form.elements.namedItem("topic") as HTMLSelectElement)?.value ?? "",
+      message: (inputEl("message") as HTMLTextAreaElement)?.value ?? "",
+      consent: (document.getElementById("consent") as HTMLInputElement)?.checked ?? false,
+    };
+
+    const { errors, clean, valid } = validateContact(values);
+    clearErrors();
+    if (!valid) {
+      showErrors(errors);
+      return;
+    }
+
+    const captchaError = document.getElementById("captcha-error");
+    if (window.__CONTACT_HAS_TURNSTILE__ && !captchaToken) {
+      if (captchaError) { captchaError.hidden = false; captchaError.textContent = "Completa la verifica anti-spam qui sopra."; }
+      return;
+    }
+    if (captchaError) captchaError.hidden = true;
+
+    submitBtn && (submitBtn.disabled = true);
+    if (submitLabel) submitLabel.textContent = "Invio in corso…";
+    if (statusLive) statusLive.textContent = "Invio in corso";
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          ...clean,
+          website: (document.getElementById("website") as HTMLInputElement)?.value ?? "",
+          elapsed: Date.now() - Number(loadedAtField?.value || Date.now()),
+          turnstileToken: captchaToken,
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+
+      window.turnstile?.reset();
+      captchaToken = "";
+
+      if (res.status === 422 && data.errors) {
+        showErrors(data.errors);
+        return;
+      }
+      if (!res.ok) {
+        if (feedback && feedbackText) {
+          feedbackText.textContent = data.error ?? "Invio non riuscito. Riprova tra poco.";
+          feedback.hidden = false;
+        }
+        return;
+      }
+
+      form.hidden = true;
+      successCard?.classList.remove("hidden");
+      successCard?.classList.add("flex");
+    } catch {
+      if (feedback && feedbackText) {
+        feedbackText.textContent = "Connessione non riuscita. Controlla la rete e riprova.";
+        feedback.hidden = false;
+      }
+    } finally {
+      submitBtn && (submitBtn.disabled = false);
+      if (submitLabel) submitLabel.textContent = "Invia messaggio";
+      if (statusLive) statusLive.textContent = "";
+    }
+  });
+
+  resetBtn?.addEventListener("click", () => {
+    form?.reset();
+    if (loadedAtField) loadedAtField.value = String(Date.now());
+    successCard?.classList.add("hidden");
+    successCard?.classList.remove("flex");
+    if (form) form.hidden = false;
+  });
+</script>

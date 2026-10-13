@@ -1,0 +1,73 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Nav from "@/components/Nav.astro";
+import Contact from "@/components/Contact.astro";
+
+export async function getStaticPaths() {
+  const services = await getCollection("service");
+  return services.map((service) => ({ params: { slug: service.id }, props: { service } }));
+}
+
+const { service } = Astro.props;
+const { Content } = await render(service);
+
+const siteUrl = "https://simonepuliti.dev";
+const pagePath = `/servizi/${service.id}`;
+const pageUrl = `${siteUrl}${pagePath}`;
+const { title, eyebrow, metaDescription, heroDot } = service.data;
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: title,
+    provider: { "@type": "Person", name: "Simone Puliti", url: siteUrl },
+    areaServed: [{ "@type": "City", name: "Verona" }, { "@type": "AdministrativeArea", name: "Veneto" }, { "@type": "Country", name: "Italia" }],
+    description: metaDescription,
+    url: pageUrl,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+      { "@type": "ListItem", position: 2, name: title, item: pageUrl },
+    ],
+  },
+];
+---
+
+<BaseLayout title={`${title} — Simone Puliti`} description={metaDescription} canonicalPath={pagePath} jsonLd={jsonLd}>
+  <main class="relative min-h-screen" data-template="service-page">
+    <Nav />
+    <div class="relative z-10">
+      <section class="px-6 pt-32 pb-16 max-w-5xl mx-auto">
+        <nav class="text-xs mb-8" style="color:var(--muted-2);font-family:var(--font-mono)" aria-label="Breadcrumb">
+          <a href="/" class="hover:underline" style="color:var(--muted)">Home</a>
+          <span class="mx-2">/</span>
+          <span style="color:var(--text)">{title}</span>
+        </nav>
+
+        <span class="inline-flex items-center mb-6" style="gap:10px;padding:7px 14px;border-radius:999px;background:var(--badge-bg);border:1px solid var(--border-soft);font-size:11px;font-weight:600;letter-spacing:1.4px;text-transform:uppercase;color:var(--badge-text);font-family:var(--font-mono)">
+          <span style={`width:6px;height:6px;border-radius:999px;background:${heroDot};display:inline-block`} />
+          {eyebrow}
+        </span>
+
+        <h1 class="text-[clamp(2.5rem,6.5vw,4.5rem)] font-black leading-[0.95] tracking-[-0.03em] mb-6" style="color:var(--text)">
+          {title}<span style="color:var(--accent-2)">.</span>
+        </h1>
+
+        <div class="prose-blog max-w-2xl mb-10">
+          <Content />
+        </div>
+
+        <a href="/contatti" class="hover-opacity inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold" style="background:#171412;color:#fff;border-radius:2px;border:1px solid #2a2724">
+          Richiedi un preventivo gratuito
+        </a>
+      </section>
+
+      <Contact />
+    </div>
+  </main>
+</BaseLayout>

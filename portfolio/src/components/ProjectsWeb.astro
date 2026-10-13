@@ -1,0 +1,111 @@
+---
+import { getCollection } from "astro:content";
+import ProjectCard from "./ProjectCard.astro";
+import TerminalCode from "./TerminalCode.astro";
+import chevronLeft from "lucide-static/icons/chevron-left.svg?raw";
+import chevronRight from "lucide-static/icons/chevron-right.svg?raw";
+
+type Props = { headingLevel?: "h1" | "h2" };
+const { headingLevel = "h2" } = Astro.props;
+const Heading = headingLevel;
+
+const projects = (await getCollection("projects-web")).sort((a, b) => a.data.order - b.data.order);
+---
+
+<section id="progetti-web" class="py-10 md:py-20 pt-20 px-6 max-w-6xl mx-auto" data-template-part="projects-web">
+  <div class="flex flex-col lg:flex-row lg:items-start gap-8 lg:gap-12 mb-12 pb-10 pt-10 md:pt-20">
+    <div class="min-w-0 flex-1">
+      <p data-reveal class="text-xs font-semibold tracking-[0.25em] uppercase mb-6" style="color:var(--accent);font-family:var(--font-mono)">
+        Progetti Web
+      </p>
+      <Heading data-reveal class="text-[clamp(1.65rem,4vw,2.75rem)] font-black tracking-[-0.02em] leading-none mb-4" style="--d:0.05s;color:var(--text)">
+        Siti Web
+      </Heading>
+      <p data-reveal class="text-lg max-w-md mb-4" style="--d:0.15s;color:var(--muted)">
+        WordPress, React e Next.js. Dal sito vetrina all'e-commerce complesso.
+      </p>
+      <p data-reveal class="text-xs font-medium tracking-wide" style="--d:0.2s;color:var(--muted-2);font-family:var(--font-mono)">
+        Sviluppo frontend presso Fornace Srl
+      </p>
+    </div>
+    <TerminalCode className="shrink-0 w-full lg:max-w-md lg:w-[420px]" />
+  </div>
+
+  <div class="relative" id="projects-web-carousel">
+    <div
+      class="flex gap-8 overflow-x-auto pb-4 -mx-6 px-6 snap-x snap-mandatory scroll-smooth projects-carousel-track"
+      data-track
+    >
+      {projects.map((project, i) => (
+        <div class="snap-start shrink-0 basis-[85%] sm:basis-[calc((100%-2rem)/2)] lg:basis-[calc((100%-4rem)/3)]" data-carousel-item>
+          <ProjectCard
+            name={project.data.name}
+            description={project.data.description}
+            tech={project.data.tech}
+            liveUrl={project.data.liveUrl}
+            repoUrl={project.data.repoUrl}
+            image={project.data.image}
+            index={i}
+          />
+        </div>
+      ))}
+    </div>
+
+    <div class="flex items-center justify-between mt-6">
+      <p class="text-xs font-medium tracking-wide" style="color:var(--muted-2);font-family:var(--font-mono)">
+        {projects.length} progetti — scorri per esplorare
+      </p>
+      <div class="flex items-center" style="gap:8px">
+        <button type="button" class="carousel-btn" data-dir="-1" aria-label="Progetto precedente" disabled>
+          <span class="w-4 h-4" set:html={chevronLeft} />
+        </button>
+        <button type="button" class="carousel-btn" data-dir="1" aria-label="Progetto successivo">
+          <span class="w-4 h-4" set:html={chevronRight} />
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .projects-carousel-track { scrollbar-width: none; -ms-overflow-style: none; }
+  .projects-carousel-track::-webkit-scrollbar { display: none; }
+  .carousel-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--text);
+    transition: opacity 0.15s;
+  }
+  .carousel-btn:disabled { opacity: 0.4; cursor: not-allowed; color: var(--muted-2); }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>("#projects-web-carousel").forEach((root) => {
+    const track = root.querySelector<HTMLElement>("[data-track]");
+    const prev = root.querySelector<HTMLButtonElement>('[data-dir="-1"]');
+    const next = root.querySelector<HTMLButtonElement>('[data-dir="1"]');
+    if (!track || !prev || !next) return;
+
+    const update = () => {
+      prev.disabled = track.scrollLeft <= 4;
+      next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+    };
+    update();
+    track.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+
+    const scrollByCard = (dir: number) => {
+      const card = track.querySelector<HTMLElement>("[data-carousel-item]");
+      const step = card ? card.offsetWidth + 32 : track.clientWidth * 0.9;
+      track.scrollBy({ left: step * dir, behavior: "smooth" });
+    };
+    prev.addEventListener("click", () => scrollByCard(-1));
+    next.addEventListener("click", () => scrollByCard(1));
+  });
+</script>

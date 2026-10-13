@@ -1,0 +1,118 @@
+---
+import arrowIcon from "lucide-static/icons/arrow-up-right.svg?raw";
+import brainIcon from "lucide-static/icons/brain-circuit.svg?raw";
+import workflowIcon from "lucide-static/icons/workflow.svg?raw";
+import plugIcon from "lucide-static/icons/plug.svg?raw";
+import dashboardIcon from "lucide-static/icons/layout-dashboard.svg?raw";
+
+const AI_STACK = ["Claude API", "OpenAI API", "Vercel AI SDK", "Next.js", "TypeScript", "LangChain"];
+
+const FEATURES = [
+  {
+    icon: brainIcon,
+    title: "Chatbot & Assistenti",
+    description:
+      "Assistenti conversazionali addestrati sui tuoi dati aziendali. Rispondono ai clienti, gestiscono FAQ e qualificano i lead 24/7.",
+  },
+  {
+    icon: workflowIcon,
+    title: "Automazione Workflow",
+    description:
+      "Pipeline AI che eliminano le attività manuali e ripetitive: classificazione documenti, generazione testi, riassunti automatici.",
+  },
+  {
+    icon: plugIcon,
+    title: "Integrazione API AI",
+    description:
+      "Connetto Claude, OpenAI e altri modelli ai tuoi sistemi esistenti: CRM, e-commerce, gestionali, database interni.",
+  },
+  {
+    icon: dashboardIcon,
+    title: "Dashboard Intelligenti",
+    description:
+      "Hai i dati ma non riesci a leggerli? Costruisco pannelli di controllo che li trasformano in numeri chiari, aggiornati in tempo reale.",
+  },
+];
+
+const TERMINAL_LINES = [
+  { delay: 0.6, text: "$ POST /v1/messages", color: "var(--accent)" },
+  { delay: 0.9, text: '  model: "claude-opus-4-6"', color: "var(--muted)" },
+  { delay: 1.1, text: "  system: \"Sei un assistente", color: "var(--muted)" },
+  { delay: 1.2, text: '    del servizio clienti di {brand}"', color: "var(--muted)" },
+  { delay: 1.4, text: "  message: userInput", color: "var(--muted)" },
+  { delay: 1.8, text: "", color: "var(--muted)" },
+  { delay: 2.0, text: "← 200 OK", color: "#22c55e" },
+  { delay: 2.2, text: '  "Certo! Il tuo ordine #4821', color: "var(--text)" },
+  { delay: 2.35, text: "   è in spedizione. Arrivo previsto", color: "var(--text)" },
+  { delay: 2.5, text: '   domani entro le 18:00."', color: "var(--text)" },
+];
+---
+
+<section id="tool-ai" class="py-10 md:py-20 px-6 max-w-6xl mx-auto" data-template-part="ai-services">
+  <div class="flex flex-col lg:flex-row lg:items-start gap-8 lg:gap-12 mb-12 pb-10 pt-10 md:pt-20">
+    <div class="min-w-0 flex-1">
+      <p data-reveal class="text-xs font-semibold tracking-[0.25em] uppercase mb-6" style="color:var(--accent);font-family:var(--font-mono)">
+        Intelligenza Artificiale
+      </p>
+      <h2 data-reveal class="text-[clamp(1.65rem,4vw,2.75rem)] font-black tracking-[-0.02em] leading-none mb-4" style="--d:0.05s;color:var(--text)">
+        Tool AI<br />
+        su Misura<span style="color:var(--accent)">.</span>
+      </h2>
+      <p data-reveal class="text-lg max-w-md mb-8 leading-relaxed" style="--d:0.15s;color:var(--muted)">
+        Integro <strong style="color:var(--text)">Claude</strong>, <strong style="color:var(--text)">OpenAI</strong> e altri modelli nei tuoi
+        flussi aziendali. Dall'assistente virtuale all'automazione di processo — ogni soluzione è costruita per andare in produzione.
+      </p>
+      <a
+        href="/contatti"
+        class="hover-opacity inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold transition-opacity duration-200"
+        style="background:#171412;color:#fff;border-radius:2px;border:1px solid #2a2724"
+      >
+        Richiedi una consulenza gratuita
+        <span class="w-4 h-4" set:html={arrowIcon} />
+      </a>
+    </div>
+
+    <div data-reveal class="shrink-0 w-full lg:max-w-md lg:w-[420px] overflow-hidden" style="--d:0.2s;background:var(--surface);border:1px solid var(--border);border-radius:2px">
+      <div class="flex items-center gap-1.5 px-4 py-3" style="border-bottom:1px solid var(--border)">
+        <span class="w-2.5 h-2.5 rounded-full" style="background:#ff5f56" />
+        <span class="w-2.5 h-2.5 rounded-full" style="background:#ffbd2e" />
+        <span class="w-2.5 h-2.5 rounded-full" style="background:#27c93f" />
+        <span class="ml-3 text-xs" style="color:var(--muted-2);font-family:var(--font-mono)">ai-integration.ts</span>
+      </div>
+      <div class="p-4 space-y-0.5" style="font-family:var(--font-mono)">
+        {TERMINAL_LINES.map((line) => (
+          <p data-reveal class="text-xs leading-5 whitespace-pre" style={`--d:${line.delay}s;color:${line.color}`}>
+            {line.text || " "}
+          </p>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div data-reveal class="flex flex-wrap gap-2 mb-12" style="--d:0.1s">
+    {AI_STACK.map((tech) => (
+      <span
+        class="text-sm font-medium px-3 py-1 rounded-full"
+        style="background:var(--accent-dim);border:1px solid var(--badge-border);color:var(--accent);font-family:var(--font-mono)"
+      >
+        {tech}
+      </span>
+    ))}
+  </div>
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    {FEATURES.map(({ icon, title, description }, i) => (
+      <div
+        data-reveal
+        class="flex flex-col gap-3 p-5"
+        style={`--d:${(0.08 * i).toFixed(2)}s;background:var(--surface);border:1px solid var(--border);border-radius:12px`}
+      >
+        <div class="flex items-center justify-center w-8 h-8 rounded-lg" style="background:var(--accent-dim)">
+          <span class="w-4 h-4" style="color:var(--accent)" set:html={icon} />
+        </div>
+        <h3 class="text-sm font-semibold" style="color:var(--text)">{title}</h3>
+        <p class="text-sm leading-relaxed" style="color:var(--muted)">{description}</p>
+      </div>
+    ))}
+  </div>
+</section>

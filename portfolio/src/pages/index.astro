@@ -1,0 +1,123 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Nav from "@/components/Nav.astro";
+import Hero from "@/components/Hero.astro";
+import AIServices from "@/components/AIServices.astro";
+import ProjectsCrypto from "@/components/ProjectsCrypto.astro";
+import ProjectsWeb from "@/components/ProjectsWeb.astro";
+import Contact from "@/components/Contact.astro";
+import AuroraBackground from "@/components/AuroraBackground.astro";
+import ParticlesBackground from "@/components/ParticlesBackground.astro";
+
+const siteUrl = "https://simonepuliti.dev";
+const title = "Simone Puliti — Web Design, Tool AI & Siti Web · Verona";
+const description =
+  "Web designer e developer freelance a Verona: web design, tool AI, siti WordPress e app React/Next.js. 14 anni di esperienza. Preventivo gratuito.";
+
+const keywords = [
+  "web design Verona",
+  "web designer Verona",
+  "webdesign Verona",
+  "web design Veneto",
+  "design siti web Verona",
+  "progettazione siti web Verona",
+  "UI design Verona",
+  "UX design Verona",
+  "sviluppo tool AI",
+  "sviluppatore AI Verona",
+  "integrazione intelligenza artificiale",
+  "assistente AI personalizzato",
+  "automazione AI aziendale",
+  "Next.js freelance Italia",
+  "frontend developer Verona",
+  "sviluppatore web Verona",
+  "WordPress Verona",
+  "freelance frontend Veneto",
+  "sviluppatore WordPress Verona",
+  "JavaScript developer Verona",
+  "sviluppatore freelance Verona",
+  "web developer Veneto",
+  "e-commerce WooCommerce Verona",
+];
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Simone Puliti — Web Design & Web Developer",
+    alternateName: "Simone Puliti",
+    url: siteUrl,
+    inLanguage: "it-IT",
+    publisher: { "@type": "Person", name: "Simone Puliti", url: siteUrl },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Simone Puliti",
+    jobTitle: "Web Designer, Frontend Developer & AI Specialist",
+    description:
+      "Web designer e Frontend Developer freelance con oltre 14 anni di esperienza. Web design, tool AI personalizzati, siti WordPress, e-commerce e app React/Next.js. Basato a Verona, disponibile in tutto il Veneto e da remoto.",
+    url: siteUrl,
+    email: "simowebdesigner@gmail.com",
+    sameAs: ["https://github.com/simonepuliti", "https://linkedin.com/in/simone-puliti-23071898"],
+    address: { "@type": "PostalAddress", addressLocality: "Verona", addressRegion: "Veneto", addressCountry: "IT" },
+    areaServed: ["Verona", "Veneto", "Italia"],
+    hasOccupation: {
+      "@type": "Occupation",
+      name: "Web Designer, Frontend Developer & AI Specialist",
+      occupationLocation: { "@type": "City", name: "Verona" },
+      skills:
+        "Web Design, UI Design, UX Design, WordPress, React, Next.js, TypeScript, WooCommerce, Tool AI, Claude API, OpenAI API, Automazione AI",
+    },
+    knowsAbout: [
+      "Web Design", "UI Design", "UX Design", "Progettazione siti web", "Tool AI personalizzati",
+      "Intelligenza Artificiale", "Claude API", "OpenAI API", "Automazione AI", "WordPress",
+      "JavaScript", "React", "Next.js", "TypeScript", "WooCommerce", "Tailwind CSS",
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": ["ProfessionalService", "LocalBusiness"],
+    name: "Simone Puliti — Web Design, Tool AI & Web Development",
+    url: siteUrl,
+    image: `${siteUrl}/og-image.png`,
+    description:
+      "Web design, sviluppo tool AI personalizzati, siti WordPress, e-commerce WooCommerce e app React/Next.js. Freelance a Verona, disponibile da remoto in tutta Italia.",
+    provider: { "@type": "Person", name: "Simone Puliti" },
+    email: "simowebdesigner@gmail.com",
+    address: { "@type": "PostalAddress", addressLocality: "Verona", addressRegion: "Veneto", addressCountry: "IT" },
+    geo: { "@type": "GeoCoordinates", latitude: 45.4384, longitude: 10.9916 },
+    areaServed: ["Verona", "Veneto", "Italia"],
+    serviceType: [
+      "Web Design", "UI/UX Design", "Progettazione siti web", "Sviluppo Tool AI",
+      "Integrazione Claude API", "Integrazione OpenAI API", "Automazione AI aziendale",
+      "Sviluppo WordPress", "E-commerce WooCommerce", "Sviluppo React / Next.js",
+    ],
+    offers: [
+      { "@type": "Offer", name: "Web Design su misura", description: "Progettazione UI/UX e web design custom orientati a conversione e brand identity." },
+      { "@type": "Offer", name: "Sviluppo Tool AI Personalizzato", description: "Assistenti AI, chatbot e automazioni su misura per la tua azienda." },
+      { "@type": "Offer", name: "Sito WordPress Professionale", description: "Siti WordPress custom, veloci e ottimizzati SEO." },
+      { "@type": "Offer", name: "App React / Next.js", description: "Interfacce moderne con React e Next.js, ottimizzate per performance e SEO." },
+    ],
+  },
+];
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/" keywords={keywords} jsonLd={jsonLd}>
+  <main class="relative min-h-screen" data-template="home">
+    <AuroraBackground />
+    <ParticlesBackground />
+    <Nav />
+    <div class="relative z-10">
+      <Hero />
+      <div class="section-dark">
+        <AIServices />
+      </div>
+      <ProjectsCrypto />
+      <div class="section-dark">
+        <ProjectsWeb />
+      </div>
+      <Contact />
+    </div>
+  </main>
+</BaseLayout>

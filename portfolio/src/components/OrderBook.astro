@@ -1,0 +1,82 @@
+---
+import { LEVELS, fmt, rowsHtml, initialSnapshot } from "@/lib/orderbook";
+
+const snapshot = initialSnapshot();
+---
+
+<div
+  data-reveal
+  class="overflow-hidden border w-full lg:max-w-sm shrink-0"
+  style="background:var(--surface);border-color:var(--card-border);border-radius:2px;font-family:var(--font-mono);font-size:11px"
+  id="order-book"
+>
+  <div class="flex items-center justify-between px-3 py-2 border-b" style="border-color:var(--border);background:var(--surface)">
+    <span class="font-semibold" style="color:var(--muted)">Order Book</span>
+    <span style="color:var(--muted-2)">ETH/USDT</span>
+  </div>
+
+  <div class="grid grid-cols-2" style="border-bottom:1px solid var(--border)">
+    <div class="border-r" style="border-color:var(--border)">
+      <div class="grid grid-cols-2 px-2 py-1.5 border-b" style="border-color:var(--border);color:var(--muted-2)">
+        <span>Bid</span><span class="text-right">Qty</span>
+      </div>
+      <div class="overflow-hidden" style={`height:${LEVELS * 22}px`} data-rows="bids" set:html={rowsHtml(snapshot.bids, "bid")} />
+    </div>
+    <div>
+      <div class="grid grid-cols-2 px-2 py-1.5 border-b" style="border-color:var(--border);color:var(--muted-2)">
+        <span>Ask</span><span class="text-right">Qty</span>
+      </div>
+      <div class="overflow-hidden" style={`height:${LEVELS * 22}px`} data-rows="asks" set:html={rowsHtml(snapshot.asks, "ask")} />
+    </div>
+  </div>
+
+  <div class="flex items-center justify-between px-3 py-2" style="background:var(--surface)">
+    <span class="font-bold text-sm" data-field="mid" style="color:#22c55e">{fmt(snapshot.mid)}</span>
+    <span style="color:var(--muted-2)">spread <span data-field="spread">{fmt(snapshot.gap)}</span></span>
+  </div>
+</div>
+
+<script>
+  import { LEVELS, INTERVAL_MS, BASE_MID, clamp, mutateSide, rowsHtml, fmt, type Level } from "@/lib/orderbook";
+
+  const root = document.getElementById("order-book");
+  if (root) {
+    const bidsEl = root.querySelector<HTMLElement>('[data-rows="bids"]');
+    const asksEl = root.querySelector<HTMLElement>('[data-rows="asks"]');
+    const midEl = root.querySelector<HTMLElement>('[data-field="mid"]');
+    const spreadEl = root.querySelector<HTMLElement>('[data-field="spread"]');
+
+    let mid = BASE_MID;
+    let bids: Level[] = [];
+    let asks: Level[] = [];
+
+    function tick() {
+      const step = (Math.random() - 0.48) * 5;
+      const newMid = clamp(mid + step, BASE_MID - 200, BASE_MID + 200);
+      const dir = newMid >= mid ? "up" : "down";
+      mid = newMid;
+
+      const gap = 8 + Math.random() * 10;
+      bids = mutateSide(bids.map((r) => ({ ...r })), mid - gap / 2, -1)
+        .sort((a, b) => b.price - a.price)
+        .slice(0, LEVELS);
+      asks = mutateSide(asks.map((r) => ({ ...r })), mid + gap / 2, 1)
+        .sort((a, b) => a.price - b.price)
+        .slice(0, LEVELS);
+
+      if (bidsEl) bidsEl.innerHTML = rowsHtml(bids, "bid");
+      if (asksEl) asksEl.innerHTML = rowsHtml(asks, "ask");
+      if (midEl) {
+        midEl.textContent = fmt(mid);
+        midEl.style.color = dir === "up" ? "#22c55e" : "#ef4444";
+      }
+      if (spreadEl) spreadEl.textContent = fmt(gap);
+    }
+
+    // Il primo tick riparte da zero lato client (ri-seed): va bene, il markup
+    // server-rendered resta visibile finché JS non prende il controllo.
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setInterval(tick, INTERVAL_MS);
+    }
+  }
+</script>

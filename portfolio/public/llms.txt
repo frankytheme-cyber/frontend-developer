@@ -1,0 +1,31 @@
+# Simone Puliti — Web Designer & Sviluppatore Tool AI · Verona
+
+> Simone Puliti è un web designer e frontend developer freelance con oltre 14 anni di esperienza, basato a Verona e disponibile da remoto in tutta Italia. Realizza web design su misura, siti WordPress e shop WooCommerce, app React/Next.js e tool AI personalizzati (Claude API, OpenAI API) per aziende, professionisti e startup.
+
+Lingua del sito: italiano (it-IT). Contatto: simowebdesigner@gmail.com.
+
+## Servizi
+
+- [Siti WordPress & E-commerce](https://simonepuliti.dev/servizi/siti-wordpress-ecommerce): siti vetrina, portali su misura e shop WooCommerce con theme custom, SEO tecnica e sicurezza.
+- [Assistenza WordPress a Verona](https://simonepuliti.dev/assistenza-wordpress-verona): manutenzione, sicurezza, recupero siti hackerati, ottimizzazione velocità, supporto WooCommerce.
+- [Sviluppo Tool AI a Verona](https://simonepuliti.dev/tool-ai-verona): assistenti virtuali, chatbot, automazioni e integrazioni con Claude API e OpenAI API.
+- [App React / Next.js](https://simonepuliti.dev/servizi/app-react-nextjs): dashboard e interfacce moderne, incluse dashboard fintech e crypto.
+
+## Chi è
+
+- [Chi sono](https://simonepuliti.dev/chi-sono): percorso professionale, modalità di lavoro, area servita (Verona, Veneto, Italia da remoto).
+- [Contatti](https://simonepuliti.dev/contatti): modulo di contatto per richiedere un preventivo gratuito.
+
+## Progetti
+
+- [Progetti siti web](https://simonepuliti.dev/progetti/siti-web): case study WordPress, e-commerce WooCommerce e app React/Next.js.
+- [Progetti dashboard & fintech](https://simonepuliti.dev/progetti/dashboard-fintech): dashboard e tool DeFi/crypto realizzati con React e TypeScript.
+
+## Guide
+
+- [Guide](https://simonepuliti.dev/guide): articoli pratici su sviluppo AI, integrazione Claude API, Next.js e web development.
+
+## File tecnici
+
+- [Sitemap](https://simonepuliti.dev/sitemap-index.xml)
+- [Robots](https://simonepuliti.dev/robots.txt)
