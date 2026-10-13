@@ -788,8 +788,16 @@ details[open] > summary.nav-link {
   cursor: pointer;
 }
 .nav-dropdown > summary::-webkit-details-marker { display: none; }
-.nav-dropdown .chev { transition: transform 0.15s; }
-.nav-dropdown[open] .chev { transform: rotate(180deg); }
+/* lucide-static inietta <svg width="24" height="24">: va vincolato alla taglia prevista */
+.nav-dropdown .chev {
+  display: inline-flex;
+  flex: none;
+  width: 0.75rem;
+  height: 0.75rem;
+  transition: transform 0.15s;
+}
+.nav-dropdown .chev svg { width: 100%; height: 100%; display: block; }
+.nav-dropdown[open] > summary .chev { transform: rotate(180deg); }
 
 .nav-dropdown-panel {
   list-style: none;
@@ -842,6 +850,7 @@ details[open] > summary.nav-link {
   list-style: none;
 }
 .mobile-menu-toggle > summary::-webkit-details-marker { display: none; }
+.mobile-menu-toggle > summary svg { width: 1rem; height: 1rem; display: block; }
 .mobile-menu-toggle .icon-close { display: none; }
 .mobile-menu-toggle[open] .icon-menu { display: none; }
 .mobile-menu-toggle[open] .icon-close { display: block; }
